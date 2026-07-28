@@ -62,9 +62,9 @@ export function HeroFeatureStage() {
       {/* 3-Device Side-by-Side Showcase (MacBook, iPad, iPhone) */}
       <div className="relative flex flex-col md:flex-row items-center justify-center gap-6 md:gap-6 lg:gap-8 pt-4">
         {/* 1. MacBook Pro 14" */}
-        <div className="w-full md:w-[48%] max-w-xl transition-all duration-500 hover:scale-[1.02] drop-shadow-2xl flex flex-col items-center gap-3">
+        <div className="w-full md:w-[48%] max-w-lg transition-all duration-500 hover:scale-[1.02] drop-shadow-2xl flex flex-col items-center gap-3">
           {macDevice && (
-            <DeviceFrame device={macDevice} inverted={true}>
+            <DeviceFrame device={macDevice} inverted={false}>
               <div
                 className={`w-full h-full transition-opacity duration-500 ${
                   isTransitioning ? 'opacity-30 blur-xs' : 'opacity-100 blur-none'
@@ -74,7 +74,7 @@ export function HeroFeatureStage() {
                   patternId={currentPattern.id}
                   paletteId={currentPalette.id}
                   seed={seed}
-                  inverted={true}
+                  inverted={false}
                   width={1200}
                   height={780}
                 />
@@ -89,7 +89,7 @@ export function HeroFeatureStage() {
         {/* 2. iPad Pro 11" */}
         <div className="w-56 sm:w-64 md:w-[28%] max-w-xs transition-all duration-500 hover:scale-[1.03] drop-shadow-2xl flex flex-col items-center gap-3">
           {padDevice && (
-            <DeviceFrame device={padDevice} inverted={true}>
+            <DeviceFrame device={padDevice} inverted={false}>
               <div
                 className={`w-full h-full transition-opacity duration-500 ${
                   isTransitioning ? 'opacity-30 blur-xs' : 'opacity-100 blur-none'
@@ -99,7 +99,7 @@ export function HeroFeatureStage() {
                   patternId={currentPattern.id}
                   paletteId={currentPalette.id}
                   seed={seed + 2}
-                  inverted={true}
+                  inverted={false}
                   width={800}
                   height={550}
                 />
@@ -114,7 +114,7 @@ export function HeroFeatureStage() {
         {/* 3. iPhone 17 Pro */}
         <div className="w-40 sm:w-48 md:w-[20%] max-w-[200px] transition-all duration-500 hover:scale-[1.03] drop-shadow-2xl flex flex-col items-center gap-3">
           {phoneDevice && (
-            <DeviceFrame device={phoneDevice} inverted={true}>
+            <DeviceFrame device={phoneDevice} inverted={false}>
               <div
                 className={`w-full h-full transition-opacity duration-500 ${
                   isTransitioning ? 'opacity-30 blur-xs' : 'opacity-100 blur-none'
@@ -124,7 +124,7 @@ export function HeroFeatureStage() {
                   patternId={currentPattern.id}
                   paletteId={currentPalette.id}
                   seed={seed + 1}
-                  inverted={true}
+                  inverted={false}
                   width={600}
                   height={1300}
                 />
