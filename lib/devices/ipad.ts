@@ -1,0 +1,88 @@
+/**
+ * iPad device configurations — verified against Apple specs (July 2026).
+ * Includes iPad Pro, iPad Air, iPad mini, iPad 11th gen, 10th gen, and 9th gen.
+ */
+import { DeviceModel } from './types';
+
+export const IPAD_DEVICES: readonly DeviceModel[] = [
+  {
+    id: 'ipad-pro-11',
+    category: 'ipad',
+    displayName: 'iPad Pro 11"',
+    bezelStyle: 'plain-bezel',
+    resolution: { width: 2420, height: 1668 },
+    aspectRatio: 2420 / 1668,
+    cornerRadiusPct: 5,
+    generation: 'M4',
+  },
+  {
+    id: 'ipad-pro-13',
+    category: 'ipad',
+    displayName: 'iPad Pro 13"',
+    bezelStyle: 'plain-bezel',
+    resolution: { width: 2752, height: 2064 },
+    aspectRatio: 2752 / 2064,
+    cornerRadiusPct: 4,
+    generation: 'M4',
+  },
+  {
+    id: 'ipad-air-11',
+    category: 'ipad',
+    displayName: 'iPad Air 11"',
+    bezelStyle: 'plain-bezel',
+    resolution: { width: 2360, height: 1640 },
+    aspectRatio: 2360 / 1640,
+    cornerRadiusPct: 5,
+    generation: 'M2',
+  },
+  {
+    id: 'ipad-air-13',
+    category: 'ipad',
+    displayName: 'iPad Air 13"',
+    bezelStyle: 'plain-bezel',
+    resolution: { width: 2732, height: 2048 },
+    aspectRatio: 2732 / 2048,
+    cornerRadiusPct: 4,
+    generation: '2024',
+  },
+  {
+    id: 'ipad-mini',
+    category: 'ipad',
+    displayName: 'iPad mini',
+    bezelStyle: 'plain-bezel',
+    resolution: { width: 2266, height: 1488 },
+    aspectRatio: 2266 / 1488,
+    cornerRadiusPct: 6,
+    generation: 'A17 Pro',
+  },
+  {
+    id: 'ipad-11th',
+    category: 'ipad',
+    displayName: 'iPad (11th gen)',
+    bezelStyle: 'plain-bezel',
+    resolution: { width: 2360, height: 1640 },
+    aspectRatio: 2360 / 1640,
+    cornerRadiusPct: 5,
+    generation: '2025',
+  },
+  {
+    id: 'ipad-10th',
+    category: 'ipad',
+    displayName: 'iPad (10th gen)',
+    bezelStyle: 'plain-bezel',
+    resolution: { width: 2360, height: 1640 },
+    aspectRatio: 2360 / 1640,
+    cornerRadiusPct: 5,
+    generation: '10th gen',
+  },
+  {
+    id: 'ipad-9th',
+    category: 'ipad',
+    displayName: 'iPad (9th gen)',
+    bezelStyle: 'home-button',
+    resolution: { width: 2160, height: 1620 },
+    aspectRatio: 2160 / 1620,
+    cornerRadiusPct: 4,
+    generation: '9th gen',
+  },
+];

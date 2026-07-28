@@ -1,0 +1,97 @@
+/**
+ * Mac device configurations — verified against Apple specs (July 2026).
+ */
+import { DeviceModel } from './types';
+
+export const MAC_DEVICES: readonly DeviceModel[] = [
+  {
+    id: 'macbook-neo-13',
+    category: 'mac',
+    displayName: 'MacBook Neo 13"',
+    bezelStyle: 'plain-bezel',
+    resolution: { width: 2408, height: 1506 },
+    aspectRatio: 2408 / 1506,
+    cornerRadiusPct: 3.5,
+    generation: '2026',
+  },
+  {
+    id: 'macbook-air-13',
+    category: 'mac',
+    displayName: 'MacBook Air 13"',
+    bezelStyle: 'notch',
+    resolution: { width: 2560, height: 1664 },
+    aspectRatio: 2560 / 1664,
+    cornerRadiusPct: 4,
+    cutout: {
+      widthPct: 18,
+      heightPct: 2.4,
+      topOffsetPct: 0,
+    },
+    generation: 'M4',
+  },
+  {
+    id: 'macbook-air-15',
+    category: 'mac',
+    displayName: 'MacBook Air 15"',
+    bezelStyle: 'notch',
+    resolution: { width: 2880, height: 1864 },
+    aspectRatio: 2880 / 1864,
+    cornerRadiusPct: 4,
+    cutout: {
+      widthPct: 16,
+      heightPct: 2.2,
+      topOffsetPct: 0,
+    },
+    generation: 'M4',
+  },
+  {
+    id: 'macbook-pro-14',
+    category: 'mac',
+    displayName: 'MacBook Pro 14"',
+    bezelStyle: 'notch',
+    resolution: { width: 3024, height: 1964 },
+    aspectRatio: 3024 / 1964,
+    cornerRadiusPct: 4,
+    cutout: {
+      widthPct: 15,
+      heightPct: 2.0,
+      topOffsetPct: 0,
+    },
+    generation: 'M4',
+  },
+  {
+    id: 'macbook-pro-16',
+    category: 'mac',
+    displayName: 'MacBook Pro 16"',
+    bezelStyle: 'notch',
+    resolution: { width: 3456, height: 2234 },
+    aspectRatio: 3456 / 2234,
+    cornerRadiusPct: 4,
+    cutout: {
+      widthPct: 13,
+      heightPct: 1.8,
+      topOffsetPct: 0,
+    },
+    generation: 'M4',
+  },
+  {
+    id: 'macbook-air-13-classic',
+    category: 'mac',
+    displayName: 'MacBook Air 13" Classic',
+    bezelStyle: 'plain-bezel',
+    resolution: { width: 2560, height: 1600 },
+    aspectRatio: 2560 / 1600,
+    cornerRadiusPct: 1.5,
+    generation: '2020',
+  },
+  {
+    id: 'macbook-pro-13-classic',
+    category: 'mac',
+    displayName: 'MacBook Pro 13" Classic',
+    bezelStyle: 'plain-bezel',
+    resolution: { width: 2560, height: 1600 },
+    aspectRatio: 2560 / 1600,
+    cornerRadiusPct: 1.5,
+    generation: '2020',
+  },
+];
