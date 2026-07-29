@@ -14,7 +14,7 @@ export default function Homepage() {
           (Intentionally dark — aurora animation requires black background)
           ================================================================ */}
       <section className="flex flex-col items-center text-center overflow-hidden bg-black">
-        <div className="relative w-full px-6 pt-16 sm:pt-20 pb-16 flex flex-col items-center min-h-[75vh]">
+        <div className="relative w-full px-6 pt-10 sm:pt-12 pb-16 flex flex-col items-center min-h-[75vh]">
           <AnimatedHeroBackground />
 
           {/* Hero editorial content */}
