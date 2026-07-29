@@ -1,6 +1,6 @@
 /**
  * Information page — Complete A to Z Reference Guide & Technical Specifications for Contour.
- * Designed with Apple-grade editorial typography, bento cards, interactive spec search, and glassmorphism.
+ * Designed with Apple-grade editorial typography, bento cards, interactive spec search, and clean neutral theme styling.
  */
 'use client';
 
@@ -91,7 +91,7 @@ export default function InfoPage() {
       <section className="space-y-10">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-[var(--card-border)] pb-6">
           <div>
-            <span className="text-xs font-bold uppercase tracking-widest text-cyan-500">Core Architecture</span>
+            <span className="text-xs font-bold uppercase tracking-widest text-[var(--foreground-muted)]">Core Architecture</span>
             <h2 className="text-2xl sm:text-4xl font-extrabold text-[var(--heading-color)] tracking-tight mt-1">
               A to Z Technical Reference
             </h2>
@@ -103,9 +103,9 @@ export default function InfoPage() {
 
         <div className="grid grid-cols-1 gap-8">
           {/* A — Algorithms */}
-          <div className="group relative bg-[var(--card-bg)] border border-[var(--card-border)] hover:border-cyan-500/30 rounded-[2rem] p-6 sm:p-8 space-y-4 backdrop-blur-2xl transition-all duration-500 hover:shadow-xl">
+          <div className="group relative bg-[var(--card-bg)] border border-[var(--card-border)] hover:border-[var(--heading-color)]/20 rounded-[2rem] p-6 sm:p-8 space-y-4 backdrop-blur-2xl transition-all duration-500 hover:shadow-xl">
             <div className="flex items-center gap-3">
-              <span className="flex items-center justify-center w-9 h-9 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 font-bold text-sm">
+              <span className="flex items-center justify-center w-9 h-9 rounded-xl bg-[var(--badge-bg)] border border-[var(--badge-border)] text-[var(--heading-color)] font-bold text-sm">
                 A
               </span>
               <h3 className="text-xl sm:text-2xl font-bold text-[var(--heading-color)] tracking-tight">
@@ -114,7 +114,7 @@ export default function InfoPage() {
             </div>
             <p className="text-sm text-[var(--foreground-muted)] leading-relaxed font-normal">
               Every pattern in Contour is created procedurally using pure mathematical algorithms. We utilize a seeded{' '}
-              <code className="text-cyan-400 bg-[var(--pill-bg)] border border-[var(--card-border)] px-2 py-0.5 rounded-md text-xs font-mono">
+              <code className="text-[var(--heading-color)] bg-[var(--pill-bg)] border border-[var(--card-border)] px-2 py-0.5 rounded-md text-xs font-mono">
                 mulberry32
               </code>{' '}
               Pseudo-Random Number Generator (PRNG) combined with 1D/2D value noise and fractal Brownian motion (fBm). This ensures that every random seed generates a completely deterministic, reproducible vector wallpaper at infinite scale.
@@ -122,9 +122,9 @@ export default function InfoPage() {
           </div>
 
           {/* B — Bezel Treatments */}
-          <div className="group relative bg-[var(--card-bg)] border border-[var(--card-border)] hover:border-indigo-500/30 rounded-[2rem] p-6 sm:p-8 space-y-5 backdrop-blur-2xl transition-all duration-500 hover:shadow-xl">
+          <div className="group relative bg-[var(--card-bg)] border border-[var(--card-border)] hover:border-[var(--heading-color)]/20 rounded-[2rem] p-6 sm:p-8 space-y-5 backdrop-blur-2xl transition-all duration-500 hover:shadow-xl">
             <div className="flex items-center gap-3">
-              <span className="flex items-center justify-center w-9 h-9 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 font-bold text-sm">
+              <span className="flex items-center justify-center w-9 h-9 rounded-xl bg-[var(--badge-bg)] border border-[var(--badge-border)] text-[var(--heading-color)] font-bold text-sm">
                 B
               </span>
               <h3 className="text-xl sm:text-2xl font-bold text-[var(--heading-color)] tracking-tight">
@@ -137,7 +137,7 @@ export default function InfoPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="p-4 rounded-xl bg-[var(--pill-bg)] border border-[var(--card-border)] space-y-1">
                 <div className="text-xs font-bold text-[var(--heading-color)] flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-cyan-400" /> Dynamic Island
+                  <span className="w-2 h-2 rounded-full bg-[var(--heading-color)] opacity-60" /> Dynamic Island
                 </div>
                 <div className="text-xs text-[var(--foreground-muted)] leading-relaxed">
                   Pill-shaped sensor cutout scaled in exact percentage for modern Pro/Air iPhones.
@@ -145,7 +145,7 @@ export default function InfoPage() {
               </div>
               <div className="p-4 rounded-xl bg-[var(--pill-bg)] border border-[var(--card-border)] space-y-1">
                 <div className="text-xs font-bold text-[var(--heading-color)] flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-purple-400" /> Notch Display
+                  <span className="w-2 h-2 rounded-full bg-[var(--heading-color)] opacity-60" /> Notch Display
                 </div>
                 <div className="text-xs text-[var(--foreground-muted)] leading-relaxed">
                   Trapezoidal display cutout with rounded bottom radii for MacBook Air/Pro and flagship iPhones.
@@ -153,7 +153,7 @@ export default function InfoPage() {
               </div>
               <div className="p-4 rounded-xl bg-[var(--pill-bg)] border border-[var(--card-border)] space-y-1">
                 <div className="text-xs font-bold text-[var(--heading-color)] flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-emerald-400" /> Plain Uniform Bezel
+                  <span className="w-2 h-2 rounded-full bg-[var(--heading-color)] opacity-60" /> Plain Uniform Bezel
                 </div>
                 <div className="text-xs text-[var(--foreground-muted)] leading-relaxed">
                   Minimalist symmetrical border frame for MacBook Neo, classic MacBooks, and iPad displays.
@@ -161,7 +161,7 @@ export default function InfoPage() {
               </div>
               <div className="p-4 rounded-xl bg-[var(--pill-bg)] border border-[var(--card-border)] space-y-1">
                 <div className="text-xs font-bold text-[var(--heading-color)] flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-amber-400" /> Home Button &amp; Wearable Squircle
+                  <span className="w-2 h-2 rounded-full bg-[var(--heading-color)] opacity-60" /> Home Button &amp; Wearable Squircle
                 </div>
                 <div className="text-xs text-[var(--foreground-muted)] leading-relaxed">
                   Touch ID chin bezel for iPhone SE &amp; authentic squircle OLED display chassis for Apple Watch.
@@ -171,9 +171,9 @@ export default function InfoPage() {
           </div>
 
           {/* C — Color Ramps & Polarity */}
-          <div className="group relative bg-[var(--card-bg)] border border-[var(--card-border)] hover:border-purple-500/30 rounded-[2rem] p-6 sm:p-8 space-y-4 backdrop-blur-2xl transition-all duration-500 hover:shadow-xl">
+          <div className="group relative bg-[var(--card-bg)] border border-[var(--card-border)] hover:border-[var(--heading-color)]/20 rounded-[2rem] p-6 sm:p-8 space-y-4 backdrop-blur-2xl transition-all duration-500 hover:shadow-xl">
             <div className="flex items-center gap-3">
-              <span className="flex items-center justify-center w-9 h-9 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400 font-bold text-sm">
+              <span className="flex items-center justify-center w-9 h-9 rounded-xl bg-[var(--badge-bg)] border border-[var(--badge-border)] text-[var(--heading-color)] font-bold text-sm">
                 C
               </span>
               <h3 className="text-xl sm:text-2xl font-bold text-[var(--heading-color)] tracking-tight">
@@ -181,15 +181,15 @@ export default function InfoPage() {
               </h3>
             </div>
             <p className="text-sm text-[var(--foreground-muted)] leading-relaxed">
-              Palettes consist of 3–5 anchor colors interpolated at runtime into a smooth 10-stop color ramp using linear RGB interpolation (<code className="text-purple-400 bg-[var(--pill-bg)] border border-[var(--card-border)] px-2 py-0.5 rounded-md text-xs font-mono">lerpRGB</code>). The <strong className="text-[var(--heading-color)]">Polarity Toggle</strong> enables instantaneous switching between light and dark modes by reversing ramp orientation without altering the curated palette selection.
+              Palettes consist of 3–5 anchor colors interpolated at runtime into a smooth 10-stop color ramp using linear RGB interpolation (<code className="text-[var(--heading-color)] bg-[var(--pill-bg)] border border-[var(--card-border)] px-2 py-0.5 rounded-md text-xs font-mono">lerpRGB</code>). The <strong className="text-[var(--heading-color)]">Polarity Toggle</strong> enables instantaneous switching between light and dark modes by reversing ramp orientation without altering the curated palette selection.
             </p>
           </div>
 
           {/* D — Device Database */}
-          <div className="group relative bg-[var(--card-bg)] border border-[var(--card-border)] hover:border-emerald-500/30 rounded-[2rem] p-6 sm:p-8 space-y-6 backdrop-blur-2xl transition-all duration-500 hover:shadow-xl">
+          <div className="group relative bg-[var(--card-bg)] border border-[var(--card-border)] hover:border-[var(--heading-color)]/20 rounded-[2rem] p-6 sm:p-8 space-y-6 backdrop-blur-2xl transition-all duration-500 hover:shadow-xl">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div className="flex items-center gap-3">
-                <span className="flex items-center justify-center w-9 h-9 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-bold text-sm">
+                <span className="flex items-center justify-center w-9 h-9 rounded-xl bg-[var(--badge-bg)] border border-[var(--badge-border)] text-[var(--heading-color)] font-bold text-sm">
                   D
                 </span>
                 <div>
@@ -210,7 +210,7 @@ export default function InfoPage() {
                     placeholder="Search model or resolution..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="px-3.5 py-1.5 rounded-full bg-[var(--pill-bg)] border border-[var(--card-border)] text-xs text-[var(--heading-color)] placeholder-[var(--foreground-muted)] focus:outline-none focus:border-emerald-500/50 w-44 sm:w-56"
+                    className="px-3.5 py-1.5 rounded-full bg-[var(--pill-bg)] border border-[var(--card-border)] text-xs text-[var(--heading-color)] placeholder-[var(--foreground-muted)] focus:outline-none focus:border-[var(--heading-color)]/30 w-44 sm:w-56"
                   />
                 </div>
                 {(['all', 'mac', 'iphone', 'ipad', 'watch'] as const).map((cat) => (
@@ -219,7 +219,7 @@ export default function InfoPage() {
                     onClick={() => setSelectedCategory(cat)}
                     className={`px-3 py-1 rounded-full text-xs font-semibold capitalize transition-all ${
                       selectedCategory === cat
-                        ? 'bg-emerald-500 text-black shadow-md'
+                        ? 'bg-[var(--heading-color)] text-[var(--background)] shadow-md'
                         : 'bg-[var(--pill-bg)] border border-[var(--card-border)] text-[var(--foreground-muted)] hover:text-[var(--heading-color)]'
                     }`}
                   >
@@ -252,7 +252,7 @@ export default function InfoPage() {
                           </span>
                         </td>
                         <td className="p-3.5 capitalize font-sans">{d.bezelStyle.replace('-', ' ')}</td>
-                        <td className="p-3.5 text-emerald-400 font-semibold">
+                        <td className="p-3.5 text-[var(--heading-color)] font-semibold">
                           {d.resolution.width} × {d.resolution.height} px
                         </td>
                         <td className="p-3.5">{d.aspectRatio.toFixed(2)}</td>
@@ -271,9 +271,9 @@ export default function InfoPage() {
           </div>
 
           {/* E — Export Engine */}
-          <div className="group relative bg-[var(--card-bg)] border border-[var(--card-border)] hover:border-amber-500/30 rounded-[2rem] p-6 sm:p-8 space-y-4 backdrop-blur-2xl transition-all duration-500 hover:shadow-xl">
+          <div className="group relative bg-[var(--card-bg)] border border-[var(--card-border)] hover:border-[var(--heading-color)]/20 rounded-[2rem] p-6 sm:p-8 space-y-4 backdrop-blur-2xl transition-all duration-500 hover:shadow-xl">
             <div className="flex items-center gap-3">
-              <span className="flex items-center justify-center w-9 h-9 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 font-bold text-sm">
+              <span className="flex items-center justify-center w-9 h-9 rounded-xl bg-[var(--badge-bg)] border border-[var(--badge-border)] text-[var(--heading-color)] font-bold text-sm">
                 E
               </span>
               <h3 className="text-xl sm:text-2xl font-bold text-[var(--heading-color)] tracking-tight">
@@ -282,7 +282,7 @@ export default function InfoPage() {
             </div>
             <p className="text-sm text-[var(--foreground-muted)] leading-relaxed">
               Exporting renders wallpapers directly at the 1:1 pixel resolution of your chosen device target (e.g. 3456 × 2234 for MacBook Pro 16&quot; or 1320 × 2868 for iPhone 17 Pro Max). We use client-side{' '}
-              <code className="text-amber-400 bg-[var(--pill-bg)] border border-[var(--card-border)] px-2 py-0.5 rounded-md text-xs font-mono">
+              <code className="text-[var(--heading-color)] bg-[var(--pill-bg)] border border-[var(--card-border)] px-2 py-0.5 rounded-md text-xs font-mono">
                 OffscreenCanvas
               </code>{' '}
               to execute ultra-fast, lossless 4K image generation without server bottlenecks or compression artifacts.
@@ -290,9 +290,9 @@ export default function InfoPage() {
           </div>
 
           {/* F & G — Favorites & Gallery */}
-          <div className="group relative bg-[var(--card-bg)] border border-[var(--card-border)] hover:border-pink-500/30 rounded-[2rem] p-6 sm:p-8 space-y-4 backdrop-blur-2xl transition-all duration-500 hover:shadow-xl">
+          <div className="group relative bg-[var(--card-bg)] border border-[var(--card-border)] hover:border-[var(--heading-color)]/20 rounded-[2rem] p-6 sm:p-8 space-y-4 backdrop-blur-2xl transition-all duration-500 hover:shadow-xl">
             <div className="flex items-center gap-3">
-              <span className="flex items-center justify-center w-9 h-9 rounded-xl bg-pink-500/10 border border-pink-500/20 text-pink-400 font-bold text-sm">
+              <span className="flex items-center justify-center w-9 h-9 rounded-xl bg-[var(--badge-bg)] border border-[var(--badge-border)] text-[var(--heading-color)] font-bold text-sm">
                 F
               </span>
               <h3 className="text-xl sm:text-2xl font-bold text-[var(--heading-color)] tracking-tight">
@@ -300,14 +300,14 @@ export default function InfoPage() {
               </h3>
             </div>
             <p className="text-sm text-[var(--foreground-muted)] leading-relaxed">
-              The <strong className="text-[var(--heading-color)]">Gallery</strong> features 37 hand-selected preset wallpapers organized by pattern families. Any customized design can be saved directly to your personal <strong className="text-[var(--heading-color)]">Favorites</strong> collection backed by client-side <code className="text-pink-400 bg-[var(--pill-bg)] border border-[var(--card-border)] px-2 py-0.5 rounded-md text-xs font-mono">localStorage</code> persistence.
+              The <strong className="text-[var(--heading-color)]">Gallery</strong> features 37 hand-selected preset wallpapers organized by pattern families. Any customized design can be saved directly to your personal <strong className="text-[var(--heading-color)]">Favorites</strong> collection backed by client-side <code className="text-[var(--heading-color)] bg-[var(--pill-bg)] border border-[var(--card-border)] px-2 py-0.5 rounded-md text-xs font-mono">localStorage</code> persistence.
             </p>
           </div>
 
           {/* K — Keyboard Shortcuts */}
-          <div className="group relative bg-[var(--card-bg)] border border-[var(--card-border)] hover:border-teal-500/30 rounded-[2rem] p-6 sm:p-8 space-y-4 backdrop-blur-2xl transition-all duration-500 hover:shadow-xl">
+          <div className="group relative bg-[var(--card-bg)] border border-[var(--card-border)] hover:border-[var(--heading-color)]/20 rounded-[2rem] p-6 sm:p-8 space-y-4 backdrop-blur-2xl transition-all duration-500 hover:shadow-xl">
             <div className="flex items-center gap-3">
-              <span className="flex items-center justify-center w-9 h-9 rounded-xl bg-teal-500/10 border border-teal-500/20 text-teal-400 font-bold text-sm">
+              <span className="flex items-center justify-center w-9 h-9 rounded-xl bg-[var(--badge-bg)] border border-[var(--badge-border)] text-[var(--heading-color)] font-bold text-sm">
                 K
               </span>
               <h3 className="text-xl sm:text-2xl font-bold text-[var(--heading-color)] tracking-tight">
@@ -324,9 +324,9 @@ export default function InfoPage() {
           </div>
 
           {/* P — Pattern Catalog */}
-          <div className="group relative bg-[var(--card-bg)] border border-[var(--card-border)] hover:border-blue-500/30 rounded-[2rem] p-6 sm:p-8 space-y-6 backdrop-blur-2xl transition-all duration-500 hover:shadow-xl">
+          <div className="group relative bg-[var(--card-bg)] border border-[var(--card-border)] hover:border-[var(--heading-color)]/20 rounded-[2rem] p-6 sm:p-8 space-y-6 backdrop-blur-2xl transition-all duration-500 hover:shadow-xl">
             <div className="flex items-center gap-3">
-              <span className="flex items-center justify-center w-9 h-9 rounded-xl bg-blue-500/10 border border-blue-500/20 text-blue-400 font-bold text-sm">
+              <span className="flex items-center justify-center w-9 h-9 rounded-xl bg-[var(--badge-bg)] border border-[var(--badge-border)] text-[var(--heading-color)] font-bold text-sm">
                 P
               </span>
               <h3 className="text-xl sm:text-2xl font-bold text-[var(--heading-color)] tracking-tight">
@@ -335,7 +335,7 @@ export default function InfoPage() {
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {PATTERNS.map((p) => (
-                <div key={p.id} className="p-4 rounded-2xl bg-[var(--pill-bg)] border border-[var(--card-border)] space-y-1.5 hover:border-blue-500/30 transition-colors">
+                <div key={p.id} className="p-4 rounded-2xl bg-[var(--pill-bg)] border border-[var(--card-border)] space-y-1.5 hover:border-[var(--heading-color)]/20 transition-colors">
                   <div className="text-xs font-bold text-[var(--heading-color)] flex items-center justify-between">
                     <span>{p.name}</span>
                     <span className="text-[10px] font-mono text-[var(--foreground-muted)] uppercase">{p.id}</span>
@@ -347,9 +347,9 @@ export default function InfoPage() {
           </div>
 
           {/* T — Tech Stack */}
-          <div className="group relative bg-[var(--card-bg)] border border-[var(--card-border)] hover:border-violet-500/30 rounded-[2rem] p-6 sm:p-8 space-y-4 backdrop-blur-2xl transition-all duration-500 hover:shadow-xl">
+          <div className="group relative bg-[var(--card-bg)] border border-[var(--card-border)] hover:border-[var(--heading-color)]/20 rounded-[2rem] p-6 sm:p-8 space-y-4 backdrop-blur-2xl transition-all duration-500 hover:shadow-xl">
             <div className="flex items-center gap-3">
-              <span className="flex items-center justify-center w-9 h-9 rounded-xl bg-violet-500/10 border border-violet-500/20 text-violet-400 font-bold text-sm">
+              <span className="flex items-center justify-center w-9 h-9 rounded-xl bg-[var(--badge-bg)] border border-[var(--badge-border)] text-[var(--heading-color)] font-bold text-sm">
                 T
               </span>
               <h3 className="text-xl sm:text-2xl font-bold text-[var(--heading-color)] tracking-tight">
@@ -362,9 +362,9 @@ export default function InfoPage() {
           </div>
 
           {/* Z — Zero Scraped Assets */}
-          <div className="group relative bg-[var(--card-bg)] border border-[var(--card-border)] hover:border-rose-500/30 rounded-[2rem] p-6 sm:p-8 space-y-4 backdrop-blur-2xl transition-all duration-500 hover:shadow-xl">
+          <div className="group relative bg-[var(--card-bg)] border border-[var(--card-border)] hover:border-[var(--heading-color)]/20 rounded-[2rem] p-6 sm:p-8 space-y-4 backdrop-blur-2xl transition-all duration-500 hover:shadow-xl">
             <div className="flex items-center gap-3">
-              <span className="flex items-center justify-center w-9 h-9 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-400 font-bold text-sm">
+              <span className="flex items-center justify-center w-9 h-9 rounded-xl bg-[var(--badge-bg)] border border-[var(--badge-border)] text-[var(--heading-color)] font-bold text-sm">
                 Z
               </span>
               <h3 className="text-xl sm:text-2xl font-bold text-[var(--heading-color)] tracking-tight">
@@ -399,7 +399,7 @@ export default function InfoPage() {
           </Link>
           <Link
             href="/gallery"
-            className="px-6 py-3 rounded-full bg-[var(--pill-bg)] border border-[var(--card-border)] text-[var(--heading-color)] font-medium text-xs sm:text-sm hover:border-cyan-500/40 transition-all"
+            className="px-6 py-3 rounded-full bg-[var(--pill-bg)] border border-[var(--card-border)] text-[var(--heading-color)] font-medium text-xs sm:text-sm hover:border-[var(--heading-color)]/30 transition-all"
           >
             Browse Gallery Presets
           </Link>
