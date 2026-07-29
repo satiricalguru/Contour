@@ -178,9 +178,35 @@ export default function Homepage() {
                 </div>
 
                 <div className="relative flex-1 flex items-center justify-center gap-3 py-4">
-                  <div className="w-14 h-24 rounded-2xl bg-white/[0.02] border border-white/[0.08] backdrop-blur-md transform -rotate-6 shadow-xl transition-transform duration-700 group-hover:-rotate-12 group-hover:scale-105 group-hover:bg-white/[0.05]" />
-                  <div className="w-14 h-24 rounded-2xl bg-white/[0.04] border border-white/[0.12] backdrop-blur-md z-10 shadow-2xl scale-110 transition-colors duration-700 group-hover:bg-white/[0.08]" />
-                  <div className="w-14 h-24 rounded-2xl bg-white/[0.02] border border-white/[0.08] backdrop-blur-md transform rotate-6 shadow-xl transition-transform duration-700 group-hover:rotate-12 group-hover:scale-105 group-hover:bg-white/[0.05]" />
+                  {/* Left card wallpaper */}
+                  <div className="relative w-14 h-24 rounded-2xl overflow-hidden bg-gradient-to-br from-zinc-800 via-zinc-950 to-black border border-white/20 transform -rotate-6 shadow-xl transition-all duration-700 group-hover:-rotate-12 group-hover:scale-105">
+                    <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(255,255,255,0.15),transparent_70%)]" />
+                    <svg className="absolute inset-0 w-full h-full text-white/30" viewBox="0 0 56 96" fill="none">
+                      <path d="M-10 70 Q 28 40 66 70" stroke="currentColor" strokeWidth="1" />
+                      <path d="M-10 80 Q 28 50 66 80" stroke="currentColor" strokeWidth="0.75" opacity="0.6" />
+                      <circle cx="28" cy="30" r="12" stroke="currentColor" strokeWidth="0.75" opacity="0.4" />
+                    </svg>
+                  </div>
+
+                  {/* Center card wallpaper */}
+                  <div className="relative w-14 h-24 rounded-2xl overflow-hidden bg-gradient-to-b from-zinc-200 via-zinc-800 to-black border border-white/40 z-10 shadow-2xl scale-110 transition-transform duration-700">
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.3),transparent_60%)]" />
+                    <svg className="absolute inset-0 w-full h-full text-white/40" viewBox="0 0 56 96" fill="none">
+                      <path d="M-5 48 C 15 20, 41 80, 61 48" stroke="currentColor" strokeWidth="1.2" />
+                      <path d="M-5 56 C 15 28, 41 88, 61 56" stroke="white" strokeWidth="0.8" opacity="0.7" />
+                    </svg>
+                    <div className="absolute bottom-1.5 left-1/2 -translate-x-1/2 w-4 h-0.5 bg-white/50 rounded-full" />
+                  </div>
+
+                  {/* Right card wallpaper */}
+                  <div className="relative w-14 h-24 rounded-2xl overflow-hidden bg-gradient-to-tl from-zinc-900 via-black to-zinc-800 border border-white/20 transform rotate-6 shadow-xl transition-all duration-700 group-hover:rotate-12 group-hover:scale-105">
+                    <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,rgba(255,255,255,0.12),transparent_70%)]" />
+                    <svg className="absolute inset-0 w-full h-full text-white/25" viewBox="0 0 56 96" fill="none">
+                      <line x1="0" y1="20" x2="56" y2="76" stroke="currentColor" strokeWidth="1" opacity="0.5" />
+                      <line x1="0" y1="36" x2="56" y2="92" stroke="currentColor" strokeWidth="0.75" opacity="0.4" />
+                      <circle cx="40" cy="25" r="8" fill="white" fillOpacity="0.12" />
+                    </svg>
+                  </div>
                 </div>
 
                 <div className="relative flex items-center justify-between text-[10px] text-[var(--foreground-muted)] font-mono">
