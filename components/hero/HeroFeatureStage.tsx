@@ -164,7 +164,7 @@ export function HeroFeatureStage() {
       </div>
 
       {/* Floating Segmented Control Bar */}
-      <div className="flex flex-wrap items-center justify-between gap-4 bg-white/[0.08] backdrop-blur-3xl border border-white/15 rounded-full p-2.5 px-5 mt-10 shadow-2xl shadow-black/40 max-w-2xl mx-auto">
+      <div className="relative z-20 flex flex-wrap items-center justify-between gap-4 bg-white/[0.08] backdrop-blur-3xl border border-white/15 rounded-full p-2.5 px-5 -mt-2 sm:-mt-4 shadow-2xl shadow-black/40 max-w-2xl mx-auto">
         <div className="flex items-center gap-3">
           <div className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse shadow-sm shadow-emerald-400/50" />
           <div className="text-left">
