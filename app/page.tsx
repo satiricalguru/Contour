@@ -8,9 +8,10 @@ import { HeroFeatureStage } from '@/components/hero/HeroFeatureStage';
 
 export default function Homepage() {
   return (
-    <div className="relative min-h-screen flex flex-col bg-black">
+    <div className="relative min-h-screen flex flex-col">
       {/* ================================================================
           HERO — Full-viewport aurora canvas with centered editorial copy
+          (Intentionally dark — aurora animation requires black background)
           ================================================================ */}
       <section className="relative flex flex-col items-center text-center px-6 pt-6 sm:pt-10 pb-20 overflow-hidden bg-black min-h-[90vh]">
         <AnimatedHeroBackground />
@@ -26,7 +27,7 @@ export default function Homepage() {
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
           </div>
 
-          {/* Main headline — Apple-scale typography */}
+          {/* Main headline */}
           <h1 className="text-5xl sm:text-7xl lg:text-8xl font-bold tracking-[-0.04em] bg-gradient-to-b from-white via-white/90 to-white/40 bg-clip-text text-transparent leading-[1.05] max-w-3xl">
             Generative Wallpapers
           </h1>
@@ -64,7 +65,7 @@ export default function Homepage() {
           <HeroFeatureStage />
         </div>
 
-        {/* Stats strip — editorial metrics */}
+        {/* Stats strip */}
         <div className="relative z-10 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto mt-12 pt-10 border-t border-white/[0.08] text-center">
           {[
             { value: '13', label: 'Algorithms' },
@@ -85,19 +86,19 @@ export default function Homepage() {
       </section>
 
       {/* ================================================================
-          FEATURES — Editorial bento grid with Apple-grade spacing
+          FEATURES — Editorial bento grid (theme-aware)
           ================================================================ */}
-      <section className="relative z-10 bg-[#0a0a0f] border-t border-white/[0.05]">
+      <section className="relative z-10 bg-[var(--background)] border-t border-[var(--card-border)]">
         <div className="mx-auto max-w-6xl px-6 sm:px-8 lg:px-12 py-28 sm:py-36">
           {/* Section header */}
           <div className="text-center mb-20 space-y-5">
-            <p className="text-[13px] font-medium text-white/40 uppercase tracking-[0.2em]">
+            <p className="text-[13px] font-medium text-[var(--foreground-muted)] uppercase tracking-[0.2em]">
               Ecosystem Highlights
             </p>
-            <h2 className="text-4xl sm:text-6xl lg:text-7xl font-bold text-white tracking-[-0.04em] leading-[1.1]">
+            <h2 className="text-4xl sm:text-6xl lg:text-7xl font-bold text-[var(--heading-color)] tracking-[-0.04em] leading-[1.1]">
               Built for Apple&nbsp;Displays.
             </h2>
-            <p className="text-base sm:text-lg text-white/40 max-w-lg mx-auto leading-relaxed font-light">
+            <p className="text-base sm:text-lg text-[var(--foreground-muted)] max-w-lg mx-auto leading-relaxed font-light">
               Engineered from pure mathematics for pixel-perfect clarity on ProMotion &amp; Retina panels.
             </p>
           </div>
@@ -107,11 +108,10 @@ export default function Homepage() {
             {/* Card 1: Generative Studio */}
             <Link
               href="/studio"
-              className="group relative flex flex-col bg-[#111116] rounded-[28px] overflow-hidden border border-white/[0.06] hover:border-white/[0.12] transition-all duration-700 hover:shadow-[0_8px_64px_rgba(111,200,224,0.06)]"
+              className="group relative flex flex-col bg-[var(--card-bg)] rounded-[28px] overflow-hidden border border-[var(--card-border)] hover:border-cyan-500/40 transition-all duration-700 hover:shadow-[0_8px_64px_rgba(111,200,224,0.08)]"
             >
-              {/* Card visual */}
-              <div className="relative h-56 w-full bg-gradient-to-b from-[#0c1b2a] to-[#111116] p-6 flex flex-col justify-between overflow-hidden">
-                {/* Subtle ambient glow */}
+              {/* Card visual — intentionally dark mockup */}
+              <div className="dark-preview-box relative h-56 w-full bg-gradient-to-b from-[#0c1b2a] to-[#0a0a12] p-6 flex flex-col justify-between overflow-hidden rounded-none">
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-cyan-500/[0.08] rounded-full blur-3xl transition-opacity duration-700 group-hover:opacity-100 opacity-60" />
 
                 <div className="relative flex items-center justify-between text-[10px] font-medium">
@@ -123,7 +123,6 @@ export default function Homepage() {
                   </span>
                 </div>
 
-                {/* Wave visualization */}
                 <div className="relative flex-1 flex items-center justify-center">
                   <svg className="w-full h-16 text-cyan-400/60 group-hover:text-cyan-400/90 transition-colors duration-700" viewBox="0 0 200 60" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
                     <path d="M0 30 Q25 10, 50 30 T100 30 T150 30 T200 30" />
@@ -145,10 +144,10 @@ export default function Homepage() {
 
               {/* Card text */}
               <div className="px-7 py-7 space-y-3 flex-1 flex flex-col">
-                <h3 className="text-[22px] font-semibold text-white tracking-tight leading-tight">
+                <h3 className="text-[22px] font-semibold text-[var(--heading-color)] tracking-tight leading-tight">
                   Generative Studio
                 </h3>
-                <p className="text-[13px] text-white/40 leading-relaxed flex-1">
+                <p className="text-[13px] text-[var(--foreground-muted)] leading-relaxed flex-1">
                   Tweak 13 mathematical algorithms, 19 mood ramps, polarity, and seed states live with floating glass controls.
                 </p>
                 <div className="pt-4 flex items-center gap-2 text-[13px] font-medium text-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity duration-500 translate-x-0 group-hover:translate-x-1 transform">
@@ -160,10 +159,9 @@ export default function Homepage() {
             {/* Card 2: Curated Gallery */}
             <Link
               href="/gallery"
-              className="group relative flex flex-col bg-[#111116] rounded-[28px] overflow-hidden border border-white/[0.06] hover:border-white/[0.12] transition-all duration-700 hover:shadow-[0_8px_64px_rgba(168,85,247,0.06)]"
+              className="group relative flex flex-col bg-[var(--card-bg)] rounded-[28px] overflow-hidden border border-[var(--card-border)] hover:border-purple-500/40 transition-all duration-700 hover:shadow-[0_8px_64px_rgba(168,85,247,0.08)]"
             >
-              {/* Card visual */}
-              <div className="relative h-56 w-full bg-gradient-to-b from-[#180c2a] to-[#111116] p-6 flex flex-col justify-between overflow-hidden">
+              <div className="dark-preview-box relative h-56 w-full bg-gradient-to-b from-[#180c2a] to-[#0a0a12] p-6 flex flex-col justify-between overflow-hidden rounded-none">
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-purple-500/[0.08] rounded-full blur-3xl transition-opacity duration-700 group-hover:opacity-100 opacity-60" />
 
                 <div className="relative flex items-center justify-between text-[10px] font-medium">
@@ -175,7 +173,6 @@ export default function Homepage() {
                   </span>
                 </div>
 
-                {/* Palette visualization */}
                 <div className="relative flex-1 flex items-center justify-center gap-3 py-4">
                   <div className="w-14 h-24 rounded-2xl bg-gradient-to-b from-indigo-500 to-purple-800 border border-white/[0.12] transform -rotate-6 shadow-xl transition-transform duration-700 group-hover:-rotate-12 group-hover:scale-105" />
                   <div className="w-14 h-24 rounded-2xl bg-gradient-to-b from-teal-400 to-blue-700 border border-white/[0.12] z-10 shadow-2xl scale-110" />
@@ -188,12 +185,11 @@ export default function Homepage() {
                 </div>
               </div>
 
-              {/* Card text */}
               <div className="px-7 py-7 space-y-3 flex-1 flex flex-col">
-                <h3 className="text-[22px] font-semibold text-white tracking-tight leading-tight">
+                <h3 className="text-[22px] font-semibold text-[var(--heading-color)] tracking-tight leading-tight">
                   Curated Gallery
                 </h3>
-                <p className="text-[13px] text-white/40 leading-relaxed flex-1">
+                <p className="text-[13px] text-[var(--foreground-muted)] leading-relaxed flex-1">
                   Browse 37 hand-selected pattern &amp; palette combinations, filterable by family, mood tone, and polarity.
                 </p>
                 <div className="pt-4 flex items-center gap-2 text-[13px] font-medium text-purple-400 opacity-0 group-hover:opacity-100 transition-opacity duration-500 translate-x-0 group-hover:translate-x-1 transform">
@@ -205,10 +201,9 @@ export default function Homepage() {
             {/* Card 3: System Architecture */}
             <Link
               href="/info"
-              className="group relative flex flex-col bg-[#111116] rounded-[28px] overflow-hidden border border-white/[0.06] hover:border-white/[0.12] transition-all duration-700 hover:shadow-[0_8px_64px_rgba(52,211,153,0.06)]"
+              className="group relative flex flex-col bg-[var(--card-bg)] rounded-[28px] overflow-hidden border border-[var(--card-border)] hover:border-emerald-500/40 transition-all duration-700 hover:shadow-[0_8px_64px_rgba(52,211,153,0.08)]"
             >
-              {/* Card visual */}
-              <div className="relative h-56 w-full bg-gradient-to-b from-[#0a1a15] to-[#111116] p-6 flex flex-col justify-between overflow-hidden">
+              <div className="dark-preview-box relative h-56 w-full bg-gradient-to-b from-[#0a1a15] to-[#0a0a12] p-6 flex flex-col justify-between overflow-hidden rounded-none">
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-emerald-500/[0.08] rounded-full blur-3xl transition-opacity duration-700 group-hover:opacity-100 opacity-60" />
 
                 <div className="relative flex items-center justify-between text-[10px] font-medium">
@@ -220,7 +215,6 @@ export default function Homepage() {
                   </span>
                 </div>
 
-                {/* Architecture visualization */}
                 <div className="relative flex-1 flex flex-col justify-center gap-2 py-3 font-mono text-[10px]">
                   <div className="flex items-center justify-between px-3 py-1.5 rounded-lg bg-white/[0.04] border border-white/[0.06]">
                     <span className="text-emerald-400/80">OffscreenCanvas</span>
@@ -237,12 +231,11 @@ export default function Homepage() {
                 </div>
               </div>
 
-              {/* Card text */}
               <div className="px-7 py-7 space-y-3 flex-1 flex flex-col">
-                <h3 className="text-[22px] font-semibold text-white tracking-tight leading-tight">
+                <h3 className="text-[22px] font-semibold text-[var(--heading-color)] tracking-tight leading-tight">
                   System Architecture
                 </h3>
-                <p className="text-[13px] text-white/40 leading-relaxed flex-1">
+                <p className="text-[13px] text-[var(--foreground-muted)] leading-relaxed flex-1">
                   Learn about our 37 hardware specifications, OffscreenCanvas 4K export pipeline, and PRNG algorithms.
                 </p>
                 <div className="pt-4 flex items-center gap-2 text-[13px] font-medium text-emerald-400 opacity-0 group-hover:opacity-100 transition-opacity duration-500 translate-x-0 group-hover:translate-x-1 transform">
@@ -254,22 +247,22 @@ export default function Homepage() {
 
           {/* Bottom editorial CTA */}
           <div className="mt-20 text-center space-y-4">
-            <p className="text-sm text-white/30 font-light">
+            <p className="text-sm text-[var(--foreground-muted)] font-light">
               Every pixel mathematically generated. Zero raster assets.
             </p>
             <div className="flex items-center justify-center gap-6">
               <Link
                 href="/studio"
-                className="text-sm text-white/60 hover:text-white transition-colors duration-300 flex items-center gap-1.5"
+                className="text-sm text-[var(--foreground-muted)] hover:text-[var(--heading-color)] transition-colors duration-300 flex items-center gap-1.5"
               >
-                Try the Studio <span className="text-white/30">→</span>
+                Try the Studio <span className="opacity-40">→</span>
               </Link>
-              <span className="text-white/10">|</span>
+              <span className="text-[var(--card-border)]">|</span>
               <Link
                 href="/info"
-                className="text-sm text-white/60 hover:text-white transition-colors duration-300 flex items-center gap-1.5"
+                className="text-sm text-[var(--foreground-muted)] hover:text-[var(--heading-color)] transition-colors duration-300 flex items-center gap-1.5"
               >
-                Learn More <span className="text-white/30">→</span>
+                Learn More <span className="opacity-40">→</span>
               </Link>
             </div>
           </div>

@@ -1,9 +1,7 @@
 /**
- * AnimatedHeroBackground — Apple iOS-style multicolor aurora wave animation.
- * Renders flowing, luminous neon light ribbons on a dark background,
- * inspired by the Apple.com/os/ios hero section.
- * Uses continuous sinusoidal ribbon paths with additive blending,
- * Gaussian blur glow halos, and 8-second automatic palette morphing.
+ * AnimatedHeroBackground — Apple-style multicolor aurora wave animation.
+ * Adapts seamlessly between Dark mode (luminous glowing neon waves on dark canvas)
+ * and Light mode (soft pastel fluid waves on light canvas).
  */
 'use client';
 
@@ -79,6 +77,8 @@ export function AnimatedHeroBackground() {
       const w = canvas.width;
       const h = canvas.height;
 
+      const isLight = document.documentElement.classList.contains('light-theme');
+
       const currentTargets = targetRampRef.current;
 
       // Smoothly morph active colors towards target (lerp 0.02 per frame for buttery transitions)
@@ -87,26 +87,18 @@ export function AnimatedHeroBackground() {
         activeColors[i] = lerpRGB(activeColors[i], target, 0.02);
       }
 
-      // Pure black base (Apple style)
-      ctx.fillStyle = '#000000';
+      // Fill canvas background according to theme
+      ctx.fillStyle = isLight ? '#f8fafc' : '#000000';
       ctx.fillRect(0, 0, w, h);
 
-      // Enable additive compositing for luminous glow effect
-      ctx.globalCompositeOperation = 'lighter';
+      // Enable compositing: 'multiply' or 'source-over' for light mode, 'lighter' for dark mode glow
+      ctx.globalCompositeOperation = isLight ? 'multiply' : 'lighter';
 
       // Render aurora ribbons
       for (let r = 0; r < ribbonCount; r++) {
         const cfg = ribbonConfigs[r];
         const colorIdx = Math.min(cfg.colorOffset, activeColors.length - 1);
         const color = activeColors[colorIdx];
-
-        // Broad soft glow pass (wide, very transparent)
-        const glowGrad = ctx.createLinearGradient(0, 0, 0, h);
-        glowGrad.addColorStop(0, 'transparent');
-        glowGrad.addColorStop(cfg.yCenter - 0.15, 'transparent');
-        glowGrad.addColorStop(cfg.yCenter, `rgba(${color.r}, ${color.g}, ${color.b}, ${cfg.opacity * 0.3})`);
-        glowGrad.addColorStop(cfg.yCenter + 0.15, 'transparent');
-        glowGrad.addColorStop(1, 'transparent');
 
         // Draw the flowing ribbon path
         ctx.save();
@@ -138,13 +130,14 @@ export function AnimatedHeroBackground() {
         }
         ctx.closePath();
 
-        // Ribbon gradient fill (center bright, edges transparent)
+        // Ribbon gradient fill
         const ribbonCenterY = cfg.yCenter * h;
         const ribbonGrad = ctx.createLinearGradient(0, ribbonCenterY - cfg.thickness, 0, ribbonCenterY + cfg.thickness);
+        const alphaMul = isLight ? 0.35 : 1.0;
         ribbonGrad.addColorStop(0, `rgba(${color.r}, ${color.g}, ${color.b}, 0)`);
-        ribbonGrad.addColorStop(0.3, `rgba(${color.r}, ${color.g}, ${color.b}, ${cfg.opacity * 0.6})`);
-        ribbonGrad.addColorStop(0.5, `rgba(${color.r}, ${color.g}, ${color.b}, ${cfg.opacity})`);
-        ribbonGrad.addColorStop(0.7, `rgba(${color.r}, ${color.g}, ${color.b}, ${cfg.opacity * 0.6})`);
+        ribbonGrad.addColorStop(0.3, `rgba(${color.r}, ${color.g}, ${color.b}, ${cfg.opacity * 0.6 * alphaMul})`);
+        ribbonGrad.addColorStop(0.5, `rgba(${color.r}, ${color.g}, ${color.b}, ${cfg.opacity * alphaMul})`);
+        ribbonGrad.addColorStop(0.7, `rgba(${color.r}, ${color.g}, ${color.b}, ${cfg.opacity * 0.6 * alphaMul})`);
         ribbonGrad.addColorStop(1, `rgba(${color.r}, ${color.g}, ${color.b}, 0)`);
 
         ctx.fillStyle = ribbonGrad;
@@ -152,15 +145,15 @@ export function AnimatedHeroBackground() {
         ctx.fill();
         ctx.restore();
 
-        // Inner bright core line (thin, bright)
+        // Inner bright core line
         ctx.save();
         ctx.beginPath();
         for (let i = 0; i < points.length; i++) {
           if (i === 0) ctx.moveTo(points[i].x, points[i].y);
           else ctx.lineTo(points[i].x, points[i].y);
         }
-        ctx.strokeStyle = `rgba(${Math.min(color.r + 60, 255)}, ${Math.min(color.g + 60, 255)}, ${Math.min(color.b + 60, 255)}, ${cfg.opacity * 0.8})`;
-        ctx.lineWidth = 2;
+        ctx.strokeStyle = `rgba(${color.r}, ${color.g}, ${color.b}, ${cfg.opacity * (isLight ? 0.4 : 0.8)})`;
+        ctx.lineWidth = isLight ? 1.5 : 2;
         ctx.filter = `blur(${Math.round(cfg.thickness * 0.15)}px)`;
         ctx.stroke();
         ctx.restore();
@@ -169,7 +162,7 @@ export function AnimatedHeroBackground() {
       // Reset composite operation
       ctx.globalCompositeOperation = 'source-over';
 
-      // Ambient floating light particles (sparse, dreamy)
+      // Ambient floating particles
       const particleCount = 15;
       for (let p = 0; p < particleCount; p++) {
         const pt = (time * 0.15 + p / particleCount) % 1;
@@ -178,8 +171,8 @@ export function AnimatedHeroBackground() {
         const pSize = (Math.sin(pt * Math.PI) * 6 + 2) * (w / 1200);
         const pColor = activeColors[Math.min(p % activeColors.length, activeColors.length - 1)];
 
-        ctx.globalCompositeOperation = 'lighter';
-        ctx.fillStyle = `rgba(${pColor.r}, ${pColor.g}, ${pColor.b}, ${0.12 * Math.sin(pt * Math.PI)})`;
+        ctx.globalCompositeOperation = isLight ? 'source-over' : 'lighter';
+        ctx.fillStyle = `rgba(${pColor.r}, ${pColor.g}, ${pColor.b}, ${(isLight ? 0.08 : 0.12) * Math.sin(pt * Math.PI)})`;
         ctx.beginPath();
         ctx.arc(px, py, pSize, 0, Math.PI * 2);
         ctx.fill();
@@ -204,7 +197,7 @@ export function AnimatedHeroBackground() {
         className="w-full h-full object-cover transition-opacity duration-1000 opacity-80"
       />
       {/* Subtle top/bottom gradient fade into page background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-[var(--background)]" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[var(--background)]" />
 
       {/* Interactivity trigger floating pill button */}
       <div className="absolute bottom-6 right-6 pointer-events-auto z-10">
