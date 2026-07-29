@@ -1,6 +1,6 @@
 /**
  * WatchFrame — renders an Apple Watch mockup with accurate squircle OLED display,
- * metallic chassis shell, Digital Crown, side button, watch band lugs, and watch face status overlay.
+ * metallic chassis shell, Digital Crown, side button, watch band lugs, and authentic watchOS watch face overlay.
  */
 'use client';
 
@@ -22,103 +22,116 @@ export function WatchFrame({
 }: WatchFrameProps) {
   const isUltra = device.id.includes('ultra');
   const textColor = inverted ? 'text-slate-900' : 'text-white';
-  const overlayBg = inverted ? 'bg-slate-900/10' : 'bg-black/30';
+  const shadowStyle = inverted
+    ? 'drop-shadow-[0_1px_3px_rgba(255,255,255,0.9)]'
+    : 'drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]';
 
   return (
     <div
-      className={`watch-frame-wrapper w-full flex flex-col items-center justify-center relative py-4 ${className}`}
+      className={`watch-frame-wrapper w-full flex flex-col items-center justify-center relative py-2 ${className}`}
       style={{ containerType: 'inline-size' }}
     >
-      {/* Top Watch Band Lug */}
-      <div className="w-[58%] h-6 bg-gradient-to-b from-slate-700 to-slate-800 rounded-t-md shadow-md border-t border-x border-white/10 relative z-0 flex items-center justify-center">
-        <div className="w-4/5 h-1 bg-black/40 rounded-full" />
+      {/* Top Watch Band Strap */}
+      <div className="w-[52%] h-7 bg-gradient-to-b from-[#27272a] via-[#3f3f46] to-[#18181b] rounded-t-xl shadow-lg border-t border-x border-white/10 relative z-0 flex items-center justify-center">
+        <div className="w-3/4 h-1 bg-black/50 rounded-full" />
       </div>
 
-      {/* Main Watch Chassis */}
+      {/* Main Watch Case Outer Shell */}
       <div
-        className={`relative w-full shadow-2xl overflow-hidden flex flex-col items-center justify-center z-10 ${
+        className={`relative w-full shadow-2xl overflow-visible flex flex-col items-center justify-center z-10 ${
           isUltra
-            ? 'bg-gradient-to-b from-[#2e2d2b] via-[#242321] to-[#1c1b1a] border-2 border-[#57534e]/50'
-            : 'bg-gradient-to-b from-[#18181b] via-[#09090b] to-[#040405] border border-white/15'
+            ? 'bg-gradient-to-b from-[#3a3935] via-[#2a2926] to-[#1e1d1b] border-2 border-[#6b655f]/60'
+            : 'bg-gradient-to-b from-[#27272a] via-[#18181b] to-[#09090b] border border-white/20'
         }`}
         style={{
-          borderRadius: `calc(${device.cornerRadiusPct + 3}cqi)`,
-          padding: 'calc(4cqi)',
+          borderRadius: `calc(${device.cornerRadiusPct + 4}cqi)`,
+          padding: 'calc(3.5cqi)',
           aspectRatio: `${device.resolution.width} / ${device.resolution.height}`,
-          boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.7), inset 0 1px 2px rgba(255, 255, 255, 0.15)',
+          boxShadow: '0 20px 40px -10px rgba(0, 0, 0, 0.8), inset 0 1px 2px rgba(255, 255, 255, 0.2)',
         }}
       >
         {/* Digital Crown (Top Right) */}
         <div
-          className={`absolute rounded-r-md shadow-md z-20 ${
+          className={`absolute rounded-r-sm shadow-md z-20 ${
             isUltra
-              ? 'bg-gradient-to-r from-[#d97706] to-[#78350f] border border-amber-500/40'
-              : 'bg-gradient-to-r from-slate-400 to-slate-600 border border-white/20'
+              ? 'bg-gradient-to-r from-[#ea580c] via-[#d97706] to-[#78350f] border border-orange-400/50'
+              : 'bg-gradient-to-r from-slate-300 via-slate-500 to-slate-700 border border-white/30'
           }`}
           style={{
-            right: '-6px',
-            top: '22%',
-            width: '6px',
-            height: '18%',
-            boxShadow: 'inset 0 1px 1px rgba(255,255,255,0.4)',
+            right: '-7px',
+            top: '20%',
+            width: '7px',
+            height: '20%',
+            boxShadow: 'inset 0 1px 2px rgba(255,255,255,0.5)',
           }}
-        />
+        >
+          {/* Crown ridged texture lines */}
+          <div className="w-full h-full flex flex-col justify-between py-0.5 opacity-60">
+            <div className="w-full h-[1px] bg-black" />
+            <div className="w-full h-[1px] bg-black" />
+            <div className="w-full h-[1px] bg-black" />
+            <div className="w-full h-[1px] bg-black" />
+          </div>
+        </div>
 
-        {/* Side Button (Below Digital Crown) */}
+        {/* Side Button (Below Crown) */}
         <div
-          className="absolute bg-[#27272a] border border-white/10 rounded-r-sm shadow-xs z-20"
+          className="absolute bg-[#18181b] border border-white/15 rounded-r-xs shadow-xs z-20"
           style={{
             right: '-4px',
-            top: '46%',
+            top: '48%',
             width: '4px',
-            height: '24%',
+            height: '22%',
           }}
         />
 
-        {/* Left Speaker Grill (Ultra models) */}
+        {/* Action Button (Left side on Ultra) */}
         {isUltra && (
           <div
-            className="absolute bg-[#1c1917] border border-stone-700/50 rounded-l-md z-20 flex flex-col justify-center gap-0.5 px-0.5"
+            className="absolute bg-[#ea580c] border border-orange-400/40 rounded-l-xs shadow-xs z-20"
             style={{
-              left: '-4px',
-              top: '36%',
-              width: '4px',
-              height: '20%',
+              left: '-5px',
+              top: '32%',
+              width: '5px',
+              height: '24%',
             }}
-          >
-            <div className="w-full h-0.5 bg-black/60 rounded-full" />
-            <div className="w-full h-0.5 bg-black/60 rounded-full" />
-          </div>
+          />
         )}
 
-        {/* OLED Screen Area */}
+        {/* Inner OLED Glass Display */}
         <div
           className="relative w-full h-full overflow-hidden bg-black flex flex-col"
           style={{
             borderRadius: `calc(${device.cornerRadiusPct}cqi)`,
-            boxShadow: 'inset 0 0 12px rgba(0, 0, 0, 0.8)',
+            boxShadow: 'inset 0 0 10px rgba(0, 0, 0, 0.9)',
           }}
         >
           {/* Wallpaper Content */}
           <div className="w-full h-full relative z-0">{children}</div>
 
-          {/* Watch Face Status Overlay (Digital Time & Date) */}
+          {/* Authentic watchOS Photos Watch Face Overlay (Safely Padded from Curved Glass Corners) */}
           <div
-            className={`absolute top-0 left-0 right-0 p-[5%] flex items-start justify-between z-10 pointer-events-none ${overlayBg} backdrop-blur-[2px]`}
+            className={`absolute top-0 right-0 pt-[10%] pr-[11%] flex flex-col items-end z-10 pointer-events-none ${shadowStyle}`}
           >
-            <div className={`text-[0.45em] font-medium tracking-tight opacity-90 ${textColor}`}>
+            <div
+              className={`text-[0.42em] font-semibold tracking-wider uppercase opacity-90 leading-tight ${textColor}`}
+              style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif' }}
+            >
               WED 29
             </div>
-            <div className={`text-[0.8em] font-extrabold font-mono leading-none tracking-tighter ${textColor}`}>
+            <div
+              className={`text-[1.2em] font-extrabold tracking-tight leading-none ${textColor}`}
+              style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif' }}
+            >
               10:09
             </div>
           </div>
         </div>
       </div>
 
-      {/* Bottom Watch Band Lug */}
-      <div className="w-[58%] h-6 bg-gradient-to-t from-slate-700 to-slate-800 rounded-b-md shadow-md border-b border-x border-white/10 relative z-0 flex items-center justify-center">
-        <div className="w-4/5 h-1 bg-black/40 rounded-full" />
+      {/* Bottom Watch Band Strap */}
+      <div className="w-[52%] h-7 bg-gradient-to-t from-[#27272a] via-[#3f3f46] to-[#18181b] rounded-b-xl shadow-lg border-b border-x border-white/10 relative z-0 flex items-center justify-center">
+        <div className="w-3/4 h-1 bg-black/50 rounded-full" />
       </div>
     </div>
   );
