@@ -10,7 +10,7 @@ export default function Homepage() {
   return (
     <div className="relative min-h-screen flex flex-col">
       {/* --- HERO SECTION WITH ANIMATED CANVAS BACKGROUND --- */}
-      <section className="relative flex flex-col items-center text-center px-4 pt-2 sm:pt-4 pb-12 overflow-hidden">
+      <section className="relative flex flex-col items-center text-center px-4 pt-2 sm:pt-4 pb-12 overflow-hidden bg-black">
         {/* Real-time procedural animated background canvas */}
         <AnimatedHeroBackground />
 
