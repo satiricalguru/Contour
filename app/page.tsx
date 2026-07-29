@@ -13,75 +13,79 @@ export default function Homepage() {
           HERO — Full-viewport aurora canvas with centered editorial copy
           (Intentionally dark — aurora animation requires black background)
           ================================================================ */}
-      <section className="relative flex flex-col items-center text-center px-6 pt-6 sm:pt-10 pb-20 overflow-hidden bg-black">
-        <AnimatedHeroBackground />
+      <section className="flex flex-col items-center text-center overflow-hidden bg-black">
+        <div className="relative w-full px-6 pt-6 sm:pt-10 flex flex-col items-center min-h-[calc(100vh-4rem)] justify-center">
+          <AnimatedHeroBackground />
 
-        {/* Hero editorial content — centered in initial viewport */}
-        <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center justify-center gap-6 pt-8 sm:pt-16 pb-16 sm:pb-24 min-h-[calc(100vh-7rem)]">
-          {/* Eyebrow pill */}
-          <div className="inline-flex items-center gap-2.5 px-5 py-2 rounded-full bg-white/[0.06] border border-white/[0.12] text-[11px] font-medium text-white/70 tracking-wide backdrop-blur-2xl">
-            <svg className="w-3.5 h-3.5 fill-current text-white/80" viewBox="0 0 814 1000">
-              <path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76.5 0-103.7 40.8-165.9 40.8s-105.6-57-155.5-127C46.7 790.7 0 663 0 541.8c0-194.4 126.4-297.5 250.8-297.5 66.1 0 121.2 43.4 162.7 43.4 39.5 0 101.1-46 176.3-46 28.5 0 130.9 2.6 198.3 99.2zm-234-181.5c31.1-36.9 53.1-88.1 53.1-139.3 0-7.1-.6-14.3-1.9-20.1-50.6 1.9-110.8 33.7-147.1 75.8-28.5 32.4-55.1 83.6-55.1 135.5 0 7.8 1.3 15.6 1.9 18.1 3.2.6 8.4 1.3 13.6 1.3 45.4 0 102.5-30.4 135.5-71.3z" />
-            </svg>
-            <span>Crafted for macOS, iOS, iPadOS &amp; watchOS</span>
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-          </div>
-
-          {/* Main headline */}
-          <h1 className="text-5xl sm:text-7xl lg:text-8xl font-bold tracking-[-0.04em] bg-gradient-to-b from-white via-white/90 to-white/40 bg-clip-text text-transparent leading-[1.05] max-w-3xl">
-            Generative Wallpapers
-          </h1>
-          <p className="text-xl sm:text-2xl lg:text-3xl font-light text-white/50 tracking-[-0.02em] -mt-2">
-            Pro Studio &amp; Mockup Engine
-          </p>
-
-          {/* Subtitle */}
-          <p className="text-sm sm:text-base text-white/45 max-w-xl mx-auto leading-relaxed font-normal">
-            Procedurally render minimalist vector landscapes at 1:1 Apple hardware resolution.
-            Preview live inside Liquid Retina &amp; Super Retina displays before 4K export.
-          </p>
-
-          {/* CTAs */}
-          <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
-            <Link
-              href="/studio"
-              className="group px-7 py-3.5 rounded-full bg-white text-black font-semibold text-sm hover:bg-white/90 shadow-2xl shadow-white/10 hover:shadow-white/20 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 flex items-center gap-2"
-            >
-              <span>Open Studio</span>
-              <span className="text-lg transition-transform group-hover:translate-x-0.5">→</span>
-            </Link>
-            <Link
-              href="/gallery"
-              className="group px-6 py-3.5 rounded-full bg-white/[0.06] border border-white/[0.12] text-white/90 font-medium text-sm hover:bg-white/[0.12] backdrop-blur-2xl transition-all duration-300 flex items-center gap-2"
-            >
-              <span>Browse Gallery</span>
-              <span className="text-lg opacity-50 transition-transform group-hover:translate-x-0.5">→</span>
-            </Link>
-          </div>
-        </div>
-
-        {/* Device showcase stage (reveals as user scrolls) */}
-        <div className="relative z-10 w-full pt-6">
-          <HeroFeatureStage />
-        </div>
-
-        {/* Stats strip */}
-        <div className="relative z-10 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto mt-12 pt-10 border-t border-white/[0.08] text-center">
-          {[
-            { value: '13', label: 'Algorithms' },
-            { value: '19', label: 'Color Ramps' },
-            { value: '37', label: 'Device Profiles' },
-            { value: '4K', label: 'Lossless Export' },
-          ].map((stat) => (
-            <div key={stat.label} className="space-y-1.5">
-              <div className="text-3xl sm:text-4xl font-bold text-white tracking-tight font-[system-ui]">
-                {stat.value}
-              </div>
-              <div className="text-[11px] text-white/40 font-medium uppercase tracking-[0.15em]">
-                {stat.label}
-              </div>
+          {/* Hero editorial content — centered in initial viewport */}
+          <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center justify-center gap-6 pt-8 sm:pt-16 pb-16 sm:pb-24">
+            {/* Eyebrow pill */}
+            <div className="inline-flex items-center gap-2.5 px-5 py-2 rounded-full bg-white/[0.06] border border-white/[0.12] text-[11px] font-medium text-white/70 tracking-wide backdrop-blur-2xl">
+              <svg className="w-3.5 h-3.5 fill-current text-white/80" viewBox="0 0 814 1000">
+                <path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76.5 0-103.7 40.8-165.9 40.8s-105.6-57-155.5-127C46.7 790.7 0 663 0 541.8c0-194.4 126.4-297.5 250.8-297.5 66.1 0 121.2 43.4 162.7 43.4 39.5 0 101.1-46 176.3-46 28.5 0 130.9 2.6 198.3 99.2zm-234-181.5c31.1-36.9 53.1-88.1 53.1-139.3 0-7.1-.6-14.3-1.9-20.1-50.6 1.9-110.8 33.7-147.1 75.8-28.5 32.4-55.1 83.6-55.1 135.5 0 7.8 1.3 15.6 1.9 18.1 3.2.6 8.4 1.3 13.6 1.3 45.4 0 102.5-30.4 135.5-71.3z" />
+              </svg>
+              <span>Crafted for macOS, iOS, iPadOS &amp; watchOS</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
             </div>
-          ))}
+
+            {/* Main headline */}
+            <h1 className="text-5xl sm:text-7xl lg:text-8xl font-bold tracking-[-0.04em] bg-gradient-to-b from-white via-white/90 to-white/40 bg-clip-text text-transparent leading-[1.05] max-w-3xl">
+              Generative Wallpapers
+            </h1>
+            <p className="text-xl sm:text-2xl lg:text-3xl font-light text-white/50 tracking-[-0.02em] -mt-2">
+              Pro Studio &amp; Mockup Engine
+            </p>
+
+            {/* Subtitle */}
+            <p className="text-sm sm:text-base text-white/45 max-w-xl mx-auto leading-relaxed font-normal">
+              Procedurally render minimalist vector landscapes at 1:1 Apple hardware resolution.
+              Preview live inside Liquid Retina &amp; Super Retina displays before 4K export.
+            </p>
+
+            {/* CTAs */}
+            <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
+              <Link
+                href="/studio"
+                className="group px-7 py-3.5 rounded-full bg-white text-black font-semibold text-sm hover:bg-white/90 shadow-2xl shadow-white/10 hover:shadow-white/20 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 flex items-center gap-2"
+              >
+                <span>Open Studio</span>
+                <span className="text-lg transition-transform group-hover:translate-x-0.5">→</span>
+              </Link>
+              <Link
+                href="/gallery"
+                className="group px-6 py-3.5 rounded-full bg-white/[0.06] border border-white/[0.12] text-white/90 font-medium text-sm hover:bg-white/[0.12] backdrop-blur-2xl transition-all duration-300 flex items-center gap-2"
+              >
+                <span>Browse Gallery</span>
+                <span className="text-lg opacity-50 transition-transform group-hover:translate-x-0.5">→</span>
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        <div className="relative z-10 w-full px-6 pb-20">
+          {/* Device showcase stage (reveals as user scrolls) */}
+          <div className="relative z-10 w-full pt-6">
+            <HeroFeatureStage />
+          </div>
+
+          {/* Stats strip */}
+          <div className="relative z-10 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto mt-12 pt-10 border-t border-white/[0.08] text-center">
+            {[
+              { value: '13', label: 'Algorithms' },
+              { value: '19', label: 'Color Ramps' },
+              { value: '37', label: 'Device Profiles' },
+              { value: '4K', label: 'Lossless Export' },
+            ].map((stat) => (
+              <div key={stat.label} className="space-y-1.5">
+                <div className="text-3xl sm:text-4xl font-bold text-white tracking-tight font-[system-ui]">
+                  {stat.value}
+                </div>
+                <div className="text-[11px] text-white/40 font-medium uppercase tracking-[0.15em]">
+                  {stat.label}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
