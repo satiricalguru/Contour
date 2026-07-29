@@ -13,11 +13,11 @@ export default function Homepage() {
           HERO — Full-viewport aurora canvas with centered editorial copy
           (Intentionally dark — aurora animation requires black background)
           ================================================================ */}
-      <section className="relative flex flex-col items-center text-center px-6 pt-6 sm:pt-10 pb-20 overflow-hidden bg-black min-h-[90vh]">
+      <section className="relative flex flex-col items-center text-center px-6 pt-6 sm:pt-10 pb-20 overflow-hidden bg-black">
         <AnimatedHeroBackground />
 
-        {/* Hero editorial content */}
-        <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center gap-6 pt-4 sm:pt-8">
+        {/* Hero editorial content — centered in initial viewport */}
+        <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center justify-center gap-6 pt-8 sm:pt-16 pb-16 sm:pb-24 min-h-[calc(100vh-7rem)]">
           {/* Eyebrow pill */}
           <div className="inline-flex items-center gap-2.5 px-5 py-2 rounded-full bg-white/[0.06] border border-white/[0.12] text-[11px] font-medium text-white/70 tracking-wide backdrop-blur-2xl">
             <svg className="w-3.5 h-3.5 fill-current text-white/80" viewBox="0 0 814 1000">
@@ -60,8 +60,8 @@ export default function Homepage() {
           </div>
         </div>
 
-        {/* Device showcase stage */}
-        <div className="relative z-10 w-full">
+        {/* Device showcase stage (reveals as user scrolls) */}
+        <div className="relative z-10 w-full pt-6">
           <HeroFeatureStage />
         </div>
 
