@@ -187,7 +187,7 @@ export default function InfoPage() {
 
           {/* D — Device Database */}
           <div className="group relative bg-[var(--card-bg)] border border-[var(--card-border)] hover:border-[var(--heading-color)]/20 rounded-[2rem] p-6 sm:p-8 space-y-6 backdrop-blur-2xl transition-all duration-500 hover:shadow-xl">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
               <div className="flex items-center gap-3">
                 <span className="flex items-center justify-center w-9 h-9 rounded-xl bg-[var(--badge-bg)] border border-[var(--badge-border)] text-[var(--heading-color)] font-bold text-sm">
                   D
@@ -203,29 +203,37 @@ export default function InfoPage() {
               </div>
 
               {/* Filter pills & Search input */}
-              <div className="flex flex-wrap items-center gap-2">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
                 <div className="relative">
                   <input
                     type="text"
                     placeholder="Search model or resolution..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="px-3.5 py-1.5 rounded-full bg-[var(--pill-bg)] border border-[var(--card-border)] text-xs text-[var(--heading-color)] placeholder-[var(--foreground-muted)] focus:outline-none focus:border-[var(--heading-color)]/30 w-44 sm:w-56"
+                    className="w-full sm:w-48 md:w-56 px-3.5 py-1.5 rounded-full bg-[var(--pill-bg)] border border-[var(--card-border)] text-xs text-[var(--heading-color)] placeholder-[var(--foreground-muted)] focus:outline-none focus:border-[var(--heading-color)]/30"
                   />
                 </div>
-                {(['all', 'mac', 'iphone', 'ipad', 'watch'] as const).map((cat) => (
-                  <button
-                    key={cat}
-                    onClick={() => setSelectedCategory(cat)}
-                    className={`px-3 py-1 rounded-full text-xs font-semibold capitalize transition-all ${
-                      selectedCategory === cat
-                        ? 'bg-[var(--heading-color)] text-[var(--background)] shadow-md'
-                        : 'bg-[var(--pill-bg)] border border-[var(--card-border)] text-[var(--foreground-muted)] hover:text-[var(--heading-color)]'
-                    }`}
-                  >
-                    {cat}
-                  </button>
-                ))}
+                <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0 scrollbar-none">
+                  {[
+                    { id: 'all', label: 'All' },
+                    { id: 'mac', label: 'Mac' },
+                    { id: 'iphone', label: 'iPhone' },
+                    { id: 'ipad', label: 'iPad' },
+                    { id: 'watch', label: 'Watch' },
+                  ].map((cat) => (
+                    <button
+                      key={cat.id}
+                      onClick={() => setSelectedCategory(cat.id as typeof selectedCategory)}
+                      className={`px-3 py-1 rounded-full text-xs font-semibold whitespace-nowrap transition-all ${
+                        selectedCategory === cat.id
+                          ? 'bg-[var(--heading-color)] text-[var(--background)] shadow-md'
+                          : 'bg-[var(--pill-bg)] border border-[var(--card-border)] text-[var(--foreground-muted)] hover:text-[var(--heading-color)]'
+                      }`}
+                    >
+                      {cat.label}
+                    </button>
+                  ))}
+                </div>
               </div>
             </div>
 
