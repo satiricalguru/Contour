@@ -65,7 +65,7 @@ export function HeroFeatureStage() {
         {/* 1. MacBook Pro 14" */}
         <div className="w-full md:w-[40%] max-w-md transition-all duration-500 hover:scale-[1.02] drop-shadow-2xl flex flex-col items-center gap-3">
           {macDevice && (
-            <DeviceFrame device={macDevice} inverted={false}>
+            <DeviceFrame device={macDevice} inverted={true}>
               <div
                 className={`w-full h-full transition-opacity duration-500 ${
                   isTransitioning ? 'opacity-30 blur-xs' : 'opacity-100 blur-none'
@@ -75,7 +75,7 @@ export function HeroFeatureStage() {
                   patternId={currentPattern.id}
                   paletteId={currentPalette.id}
                   seed={seed}
-                  inverted={false}
+                  inverted={true}
                   width={1200}
                   height={780}
                 />
@@ -90,7 +90,7 @@ export function HeroFeatureStage() {
         {/* 2. iPad Pro 11" */}
         <div className="w-52 sm:w-60 md:w-[24%] max-w-xs transition-all duration-500 hover:scale-[1.03] drop-shadow-2xl flex flex-col items-center gap-3">
           {padDevice && (
-            <DeviceFrame device={padDevice} inverted={false}>
+            <DeviceFrame device={padDevice} inverted={true}>
               <div
                 className={`w-full h-full transition-opacity duration-500 ${
                   isTransitioning ? 'opacity-30 blur-xs' : 'opacity-100 blur-none'
@@ -100,7 +100,7 @@ export function HeroFeatureStage() {
                   patternId={currentPattern.id}
                   paletteId={currentPalette.id}
                   seed={seed + 2}
-                  inverted={false}
+                  inverted={true}
                   width={800}
                   height={550}
                 />
@@ -115,7 +115,7 @@ export function HeroFeatureStage() {
         {/* 3. iPhone 17 Pro */}
         <div className="w-36 sm:w-44 md:w-[18%] max-w-[180px] transition-all duration-500 hover:scale-[1.03] drop-shadow-2xl flex flex-col items-center gap-3">
           {phoneDevice && (
-            <DeviceFrame device={phoneDevice} inverted={false}>
+            <DeviceFrame device={phoneDevice} inverted={true}>
               <div
                 className={`w-full h-full transition-opacity duration-500 ${
                   isTransitioning ? 'opacity-30 blur-xs' : 'opacity-100 blur-none'
@@ -125,7 +125,7 @@ export function HeroFeatureStage() {
                   patternId={currentPattern.id}
                   paletteId={currentPalette.id}
                   seed={seed + 1}
-                  inverted={false}
+                  inverted={true}
                   width={600}
                   height={1300}
                 />
@@ -140,7 +140,7 @@ export function HeroFeatureStage() {
         {/* 4. Apple Watch Ultra 2 */}
         <div className="w-28 sm:w-36 md:w-[14%] max-w-[140px] transition-all duration-500 hover:scale-[1.03] drop-shadow-2xl flex flex-col items-center gap-3">
           {watchDevice && (
-            <DeviceFrame device={watchDevice} inverted={false}>
+            <DeviceFrame device={watchDevice} inverted={true}>
               <div
                 className={`w-full h-full transition-opacity duration-500 ${
                   isTransitioning ? 'opacity-30 blur-xs' : 'opacity-100 blur-none'
@@ -150,7 +150,7 @@ export function HeroFeatureStage() {
                   patternId={currentPattern.id}
                   paletteId={currentPalette.id}
                   seed={seed + 3}
-                  inverted={false}
+                  inverted={true}
                   width={410}
                   height={502}
                 />
