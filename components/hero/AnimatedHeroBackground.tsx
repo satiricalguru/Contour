@@ -50,7 +50,7 @@ export function AnimatedHeroBackground() {
         muted
         playsInline
         aria-hidden="true"
-        className="w-full h-full object-cover opacity-85 scale-[1.02] transition-opacity duration-1000"
+        className="w-full h-full object-cover object-top opacity-85 scale-[1.01] transition-opacity duration-1000"
       >
         <source src="/media/apple-hero.mp4" type="video/mp4" />
         <source src="https://www.apple.com/105/media/ww/os/shared/2026/ddee26e5-ed05-4bf5-a59a-69f6cd265e29/anim/hero/xlarge.mp4" type="video/mp4" />
