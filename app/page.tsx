@@ -112,36 +112,36 @@ export default function Homepage() {
             {/* Card 1: Generative Studio */}
             <Link
               href="/studio"
-              className="group relative flex flex-col bg-[var(--card-bg)] rounded-[28px] overflow-hidden border border-[var(--card-border)] hover:border-cyan-500/40 transition-all duration-700 hover:shadow-[0_8px_64px_rgba(111,200,224,0.08)]"
+              className="group relative flex flex-col bg-[var(--card-bg)] rounded-[28px] overflow-hidden border border-[var(--card-border)] hover:border-white/[0.15] transition-all duration-700 hover:shadow-[0_8px_64px_rgba(255,255,255,0.03)]"
             >
-              {/* Card visual — intentionally dark mockup */}
-              <div className="dark-preview-box relative h-56 w-full bg-gradient-to-b from-[#0c1b2a] to-[#0a0a12] p-6 flex flex-col justify-between overflow-hidden rounded-none">
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-cyan-500/[0.08] rounded-full blur-3xl transition-opacity duration-700 group-hover:opacity-100 opacity-60" />
+              {/* Card visual — minimal monochrome */}
+              <div className="dark-preview-box relative h-56 w-full bg-[#050505] p-6 flex flex-col justify-between overflow-hidden rounded-none border-b border-[var(--card-border)]">
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-white/[0.02] rounded-full blur-3xl transition-opacity duration-700 group-hover:opacity-100 opacity-60" />
 
                 <div className="relative flex items-center justify-between text-[10px] font-medium">
-                  <span className="px-2.5 py-1 rounded-full bg-cyan-500/[0.12] text-cyan-400 tracking-wider uppercase font-semibold">
+                  <span className="px-2.5 py-1 rounded-full bg-white/[0.06] border border-white/[0.08] text-white/70 tracking-wider uppercase font-semibold">
                     Real-Time Engine
                   </span>
-                  <span className="text-white/30 group-hover:text-white/60 transition-colors">
+                  <span className="text-[var(--foreground-muted)] group-hover:text-white/80 transition-colors">
                     Studio →
                   </span>
                 </div>
 
                 <div className="relative flex-1 flex items-center justify-center">
-                  <svg className="w-full h-16 text-cyan-400/60 group-hover:text-cyan-400/90 transition-colors duration-700" viewBox="0 0 200 60" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
+                  <svg className="w-full h-16 text-white/20 group-hover:text-white/40 transition-colors duration-700" viewBox="0 0 200 60" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
                     <path d="M0 30 Q25 10, 50 30 T100 30 T150 30 T200 30" />
                     <path d="M0 38 Q25 18, 50 38 T100 38 T150 38 T200 38" opacity="0.4" strokeWidth="1" />
                     <path d="M0 22 Q25 2, 50 22 T100 22 T150 22 T200 22" opacity="0.25" strokeWidth="0.75" />
                   </svg>
                 </div>
 
-                <div className="relative flex items-center justify-between text-[10px] text-white/30 font-mono">
+                <div className="relative flex items-center justify-between text-[10px] text-[var(--foreground-muted)] font-mono">
                   <span>PROMOTION 120HZ</span>
                   <div className="flex items-center gap-2">
-                    <div className="h-[3px] w-16 bg-white/10 rounded-full overflow-hidden">
-                      <div className="h-full w-2/3 bg-cyan-400/60 rounded-full" />
+                    <div className="h-[3px] w-16 bg-white/[0.05] rounded-full overflow-hidden">
+                      <div className="h-full w-2/3 bg-white/40 rounded-full" />
                     </div>
-                    <span className="text-cyan-400/60">SEED #4092</span>
+                    <span className="text-white/50">SEED #4092</span>
                   </div>
                 </div>
               </div>
@@ -154,7 +154,7 @@ export default function Homepage() {
                 <p className="text-[13px] text-[var(--foreground-muted)] leading-relaxed flex-1">
                   Tweak 13 mathematical algorithms, 19 mood ramps, polarity, and seed states live with floating glass controls.
                 </p>
-                <div className="pt-4 flex items-center gap-2 text-[13px] font-medium text-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity duration-500 translate-x-0 group-hover:translate-x-1 transform">
+                <div className="pt-4 flex items-center gap-2 text-[13px] font-medium text-white/70 opacity-0 group-hover:opacity-100 transition-opacity duration-500 translate-x-0 group-hover:translate-x-1 transform">
                   Launch Studio <span className="text-base">→</span>
                 </div>
               </div>
@@ -163,29 +163,29 @@ export default function Homepage() {
             {/* Card 2: Curated Gallery */}
             <Link
               href="/gallery"
-              className="group relative flex flex-col bg-[var(--card-bg)] rounded-[28px] overflow-hidden border border-[var(--card-border)] hover:border-purple-500/40 transition-all duration-700 hover:shadow-[0_8px_64px_rgba(168,85,247,0.08)]"
+              className="group relative flex flex-col bg-[var(--card-bg)] rounded-[28px] overflow-hidden border border-[var(--card-border)] hover:border-white/[0.15] transition-all duration-700 hover:shadow-[0_8px_64px_rgba(255,255,255,0.03)]"
             >
-              <div className="dark-preview-box relative h-56 w-full bg-gradient-to-b from-[#180c2a] to-[#0a0a12] p-6 flex flex-col justify-between overflow-hidden rounded-none">
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-purple-500/[0.08] rounded-full blur-3xl transition-opacity duration-700 group-hover:opacity-100 opacity-60" />
+              <div className="dark-preview-box relative h-56 w-full bg-[#050505] p-6 flex flex-col justify-between overflow-hidden rounded-none border-b border-[var(--card-border)]">
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-white/[0.02] rounded-full blur-3xl transition-opacity duration-700 group-hover:opacity-100 opacity-60" />
 
                 <div className="relative flex items-center justify-between text-[10px] font-medium">
-                  <span className="px-2.5 py-1 rounded-full bg-purple-500/[0.12] text-purple-400 tracking-wider uppercase font-semibold">
+                  <span className="px-2.5 py-1 rounded-full bg-white/[0.06] border border-white/[0.08] text-white/70 tracking-wider uppercase font-semibold">
                     37 Presets
                   </span>
-                  <span className="text-white/30 group-hover:text-white/60 transition-colors">
+                  <span className="text-[var(--foreground-muted)] group-hover:text-white/80 transition-colors">
                     Gallery →
                   </span>
                 </div>
 
                 <div className="relative flex-1 flex items-center justify-center gap-3 py-4">
-                  <div className="w-14 h-24 rounded-2xl bg-gradient-to-b from-indigo-500 to-purple-800 border border-white/[0.12] transform -rotate-6 shadow-xl transition-transform duration-700 group-hover:-rotate-12 group-hover:scale-105" />
-                  <div className="w-14 h-24 rounded-2xl bg-gradient-to-b from-teal-400 to-blue-700 border border-white/[0.12] z-10 shadow-2xl scale-110" />
-                  <div className="w-14 h-24 rounded-2xl bg-gradient-to-b from-rose-500 to-amber-700 border border-white/[0.12] transform rotate-6 shadow-xl transition-transform duration-700 group-hover:rotate-12 group-hover:scale-105" />
+                  <div className="w-14 h-24 rounded-2xl bg-white/[0.02] border border-white/[0.08] backdrop-blur-md transform -rotate-6 shadow-xl transition-transform duration-700 group-hover:-rotate-12 group-hover:scale-105 group-hover:bg-white/[0.05]" />
+                  <div className="w-14 h-24 rounded-2xl bg-white/[0.04] border border-white/[0.12] backdrop-blur-md z-10 shadow-2xl scale-110 transition-colors duration-700 group-hover:bg-white/[0.08]" />
+                  <div className="w-14 h-24 rounded-2xl bg-white/[0.02] border border-white/[0.08] backdrop-blur-md transform rotate-6 shadow-xl transition-transform duration-700 group-hover:rotate-12 group-hover:scale-105 group-hover:bg-white/[0.05]" />
                 </div>
 
-                <div className="relative flex items-center justify-between text-[10px] text-white/30 font-mono">
+                <div className="relative flex items-center justify-between text-[10px] text-[var(--foreground-muted)] font-mono">
                   <span>CURATED COLLECTION</span>
-                  <span className="text-purple-400/60">13 FAMILIES</span>
+                  <span className="text-white/50">13 FAMILIES</span>
                 </div>
               </div>
 
@@ -196,7 +196,7 @@ export default function Homepage() {
                 <p className="text-[13px] text-[var(--foreground-muted)] leading-relaxed flex-1">
                   Browse 37 hand-selected pattern &amp; palette combinations, filterable by family, mood tone, and polarity.
                 </p>
-                <div className="pt-4 flex items-center gap-2 text-[13px] font-medium text-purple-400 opacity-0 group-hover:opacity-100 transition-opacity duration-500 translate-x-0 group-hover:translate-x-1 transform">
+                <div className="pt-4 flex items-center gap-2 text-[13px] font-medium text-white/70 opacity-0 group-hover:opacity-100 transition-opacity duration-500 translate-x-0 group-hover:translate-x-1 transform">
                   Explore Gallery <span className="text-base">→</span>
                 </div>
               </div>
@@ -205,32 +205,32 @@ export default function Homepage() {
             {/* Card 3: System Architecture */}
             <Link
               href="/info"
-              className="group relative flex flex-col bg-[var(--card-bg)] rounded-[28px] overflow-hidden border border-[var(--card-border)] hover:border-emerald-500/40 transition-all duration-700 hover:shadow-[0_8px_64px_rgba(52,211,153,0.08)]"
+              className="group relative flex flex-col bg-[var(--card-bg)] rounded-[28px] overflow-hidden border border-[var(--card-border)] hover:border-white/[0.15] transition-all duration-700 hover:shadow-[0_8px_64px_rgba(255,255,255,0.03)]"
             >
-              <div className="dark-preview-box relative h-56 w-full bg-gradient-to-b from-[#0a1a15] to-[#0a0a12] p-6 flex flex-col justify-between overflow-hidden rounded-none">
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-emerald-500/[0.08] rounded-full blur-3xl transition-opacity duration-700 group-hover:opacity-100 opacity-60" />
+              <div className="dark-preview-box relative h-56 w-full bg-[#050505] p-6 flex flex-col justify-between overflow-hidden rounded-none border-b border-[var(--card-border)]">
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-white/[0.02] rounded-full blur-3xl transition-opacity duration-700 group-hover:opacity-100 opacity-60" />
 
                 <div className="relative flex items-center justify-between text-[10px] font-medium">
-                  <span className="px-2.5 py-1 rounded-full bg-emerald-500/[0.12] text-emerald-400 tracking-wider uppercase font-semibold">
+                  <span className="px-2.5 py-1 rounded-full bg-white/[0.06] border border-white/[0.08] text-white/70 tracking-wider uppercase font-semibold">
                     Technical Specs
                   </span>
-                  <span className="text-white/30 group-hover:text-white/60 transition-colors">
+                  <span className="text-[var(--foreground-muted)] group-hover:text-white/80 transition-colors">
                     Info →
                   </span>
                 </div>
 
                 <div className="relative flex-1 flex flex-col justify-center gap-2 py-3 font-mono text-[10px]">
-                  <div className="flex items-center justify-between px-3 py-1.5 rounded-lg bg-white/[0.04] border border-white/[0.06]">
-                    <span className="text-emerald-400/80">OffscreenCanvas</span>
-                    <span className="text-white/30">4K PNG</span>
+                  <div className="flex items-center justify-between px-3 py-1.5 rounded-lg bg-white/[0.02] border border-white/[0.04]">
+                    <span className="text-white/70">OffscreenCanvas</span>
+                    <span className="text-[var(--foreground-muted)]">4K PNG</span>
                   </div>
-                  <div className="flex items-center justify-between px-3 py-1.5 rounded-lg bg-white/[0.04] border border-white/[0.06]">
-                    <span className="text-white/50">Mulberry32 PRNG</span>
-                    <span className="text-emerald-400/80 font-semibold">OK</span>
+                  <div className="flex items-center justify-between px-3 py-1.5 rounded-lg bg-white/[0.02] border border-white/[0.04]">
+                    <span className="text-[var(--foreground-muted)]">Mulberry32 PRNG</span>
+                    <span className="text-white/80 font-semibold">OK</span>
                   </div>
-                  <div className="flex items-center justify-between px-3 py-1.5 rounded-lg bg-white/[0.04] border border-white/[0.06]">
-                    <span className="text-white/50">37 Apple Devices</span>
-                    <span className="text-emerald-400/80 font-semibold">100%</span>
+                  <div className="flex items-center justify-between px-3 py-1.5 rounded-lg bg-white/[0.02] border border-white/[0.04]">
+                    <span className="text-[var(--foreground-muted)]">37 Apple Devices</span>
+                    <span className="text-white/80 font-semibold">100%</span>
                   </div>
                 </div>
               </div>
@@ -242,7 +242,7 @@ export default function Homepage() {
                 <p className="text-[13px] text-[var(--foreground-muted)] leading-relaxed flex-1">
                   Learn about our 37 hardware specifications, OffscreenCanvas 4K export pipeline, and PRNG algorithms.
                 </p>
-                <div className="pt-4 flex items-center gap-2 text-[13px] font-medium text-emerald-400 opacity-0 group-hover:opacity-100 transition-opacity duration-500 translate-x-0 group-hover:translate-x-1 transform">
+                <div className="pt-4 flex items-center gap-2 text-[13px] font-medium text-white/70 opacity-0 group-hover:opacity-100 transition-opacity duration-500 translate-x-0 group-hover:translate-x-1 transform">
                   Read Documentation <span className="text-base">→</span>
                 </div>
               </div>
