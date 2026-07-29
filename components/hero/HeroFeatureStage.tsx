@@ -22,6 +22,7 @@ export function HeroFeatureStage() {
   const macDevice = getDeviceById('macbook-pro-14');
   const padDevice = getDeviceById('ipad-pro-11');
   const phoneDevice = getDeviceById('iphone-17-pro');
+  const watchDevice = getDeviceById('apple-watch-ultra-2');
 
   const cycleRandom = useCallback(() => {
     setIsTransitioning(true);
@@ -50,7 +51,7 @@ export function HeroFeatureStage() {
   const currentPalette = PALETTES[paletteIdx];
 
   return (
-    <div className="relative w-full max-w-6xl mx-auto mt-8 mb-6 px-2 sm:px-4">
+    <div className="relative w-full max-w-7xl mx-auto mt-8 mb-6 px-2 sm:px-4">
       {/* Glow aura behind stage */}
       <div
         className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-4/5 h-4/5 blur-3xl opacity-20 pointer-events-none rounded-full transition-colors duration-1000"
@@ -59,10 +60,10 @@ export function HeroFeatureStage() {
         }}
       />
 
-      {/* 3-Device Side-by-Side Showcase (MacBook, iPad, iPhone) */}
-      <div className="relative flex flex-col md:flex-row items-center justify-center gap-6 md:gap-6 lg:gap-8 pt-4">
+      {/* 4-Device Side-by-Side Showcase (MacBook, iPad, iPhone, Apple Watch) */}
+      <div className="relative flex flex-col md:flex-row items-center justify-center gap-6 md:gap-4 lg:gap-6 pt-4">
         {/* 1. MacBook Pro 14" */}
-        <div className="w-full md:w-[48%] max-w-lg transition-all duration-500 hover:scale-[1.02] drop-shadow-2xl flex flex-col items-center gap-3">
+        <div className="w-full md:w-[40%] max-w-md transition-all duration-500 hover:scale-[1.02] drop-shadow-2xl flex flex-col items-center gap-3">
           {macDevice && (
             <DeviceFrame device={macDevice} inverted={false}>
               <div
@@ -87,7 +88,7 @@ export function HeroFeatureStage() {
         </div>
 
         {/* 2. iPad Pro 11" */}
-        <div className="w-56 sm:w-64 md:w-[28%] max-w-xs transition-all duration-500 hover:scale-[1.03] drop-shadow-2xl flex flex-col items-center gap-3">
+        <div className="w-52 sm:w-60 md:w-[24%] max-w-xs transition-all duration-500 hover:scale-[1.03] drop-shadow-2xl flex flex-col items-center gap-3">
           {padDevice && (
             <DeviceFrame device={padDevice} inverted={false}>
               <div
@@ -112,7 +113,7 @@ export function HeroFeatureStage() {
         </div>
 
         {/* 3. iPhone 17 Pro */}
-        <div className="w-40 sm:w-48 md:w-[20%] max-w-[200px] transition-all duration-500 hover:scale-[1.03] drop-shadow-2xl flex flex-col items-center gap-3">
+        <div className="w-36 sm:w-44 md:w-[18%] max-w-[180px] transition-all duration-500 hover:scale-[1.03] drop-shadow-2xl flex flex-col items-center gap-3">
           {phoneDevice && (
             <DeviceFrame device={phoneDevice} inverted={false}>
               <div
@@ -133,6 +134,31 @@ export function HeroFeatureStage() {
           )}
           <div className="px-3.5 py-1 rounded-full bg-white/[0.08] border border-white/10 text-[10px] font-semibold text-white/80 backdrop-blur-md whitespace-nowrap shadow-xs">
             iPhone 17 Pro
+          </div>
+        </div>
+
+        {/* 4. Apple Watch Ultra 2 */}
+        <div className="w-28 sm:w-36 md:w-[14%] max-w-[140px] transition-all duration-500 hover:scale-[1.03] drop-shadow-2xl flex flex-col items-center gap-3">
+          {watchDevice && (
+            <DeviceFrame device={watchDevice} inverted={false}>
+              <div
+                className={`w-full h-full transition-opacity duration-500 ${
+                  isTransitioning ? 'opacity-30 blur-xs' : 'opacity-100 blur-none'
+                }`}
+              >
+                <WallpaperCanvas
+                  patternId={currentPattern.id}
+                  paletteId={currentPalette.id}
+                  seed={seed + 3}
+                  inverted={false}
+                  width={410}
+                  height={502}
+                />
+              </div>
+            </DeviceFrame>
+          )}
+          <div className="px-3.5 py-1 rounded-full bg-white/[0.08] border border-white/10 text-[10px] font-semibold text-white/80 backdrop-blur-md whitespace-nowrap shadow-xs">
+            Apple Watch Ultra 2
           </div>
         </div>
       </div>

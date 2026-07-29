@@ -83,7 +83,9 @@ function StudioContent() {
 
   // Compact responsive max width so mockups fit comfortably in viewport
   const containerMaxWidth =
-    device?.category === 'iphone'
+    device?.category === 'watch'
+      ? 'max-w-[200px] sm:max-w-[240px]'
+      : device?.category === 'iphone'
       ? 'max-w-[220px] sm:max-w-[260px]'
       : device?.category === 'ipad'
       ? 'max-w-md sm:max-w-lg'
