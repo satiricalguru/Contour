@@ -19,8 +19,11 @@ export function AnimatedHeroBackground() {
         <source src="/apple-hero.mp4" type="video/mp4" />
       </video>
 
-      {/* Subtle top/bottom gradient overlay to blend into background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-[var(--background)] opacity-70" />
+      {/* Top gradient for blending and text legibility */}
+      <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-black/80 to-transparent pointer-events-none" />
+      
+      {/* Strong bottom gradient to completely fade the video into solid black, preventing any hard edge */}
+      <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black via-black/60 to-transparent pointer-events-none" />
     </div>
   );
 }
