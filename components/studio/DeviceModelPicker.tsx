@@ -43,6 +43,17 @@ const CATEGORIES: {
       </svg>
     ),
   },
+  {
+    id: 'watch',
+    label: 'Watch',
+    renderIcon: () => (
+      <svg className="w-3.5 h-3.5 stroke-current" viewBox="0 0 24 24" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="6" y="6" width="12" height="12" rx="3" />
+        <path d="M9 3h6v3H9zM9 18h6v3H9z" />
+        <path d="M19 9.5h1v3h-1z" fill="currentColor" />
+      </svg>
+    ),
+  },
 ];
 
 export function DeviceModelPicker() {

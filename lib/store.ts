@@ -92,6 +92,7 @@ export const useContourStore = create<ContourState>((set, get) => ({
       mac: 'macbook-pro-14',
       iphone: 'iphone-17-pro',
       ipad: 'ipad-pro-11',
+      watch: 'apple-watch-ultra-2',
     };
     set({ deviceCategory: cat, modelId: defaults[cat] });
   },

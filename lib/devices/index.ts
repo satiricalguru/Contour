@@ -5,11 +5,13 @@ import { DeviceModel, DeviceCategory } from './types';
 import { MAC_DEVICES } from './mac';
 import { IPHONE_DEVICES } from './iphone';
 import { IPAD_DEVICES } from './ipad';
+import { WATCH_DEVICES } from './watch';
 
 export const ALL_DEVICES: readonly DeviceModel[] = [
   ...MAC_DEVICES,
   ...IPHONE_DEVICES,
   ...IPAD_DEVICES,
+  ...WATCH_DEVICES,
 ];
 
 export function getDevicesByCategory(category: DeviceCategory): DeviceModel[] {
@@ -25,6 +27,7 @@ export function getDefaultDevice(category: DeviceCategory): DeviceModel {
     mac: 'macbook-pro-14',
     iphone: 'iphone-17-pro',
     ipad: 'ipad-pro-11',
+    watch: 'apple-watch-ultra-2',
   };
   return getDeviceById(defaults[category]) ?? ALL_DEVICES[0];
 }

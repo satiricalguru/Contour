@@ -15,6 +15,7 @@ export default function InfoPage() {
   const macCount = ALL_DEVICES.filter((d) => d.category === 'mac').length;
   const iphoneCount = ALL_DEVICES.filter((d) => d.category === 'iphone').length;
   const ipadCount = ALL_DEVICES.filter((d) => d.category === 'ipad').length;
+  const watchCount = ALL_DEVICES.filter((d) => d.category === 'watch').length;
 
   return (
     <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-12 space-y-16">
@@ -24,7 +25,7 @@ export default function InfoPage() {
           Contour: A to Z Documentation
         </h1>
         <p className="text-base sm:text-lg text-[var(--foreground-muted)] font-normal leading-relaxed">
-          Everything you need to know about Contour — from our procedural canvas rendering engines and color interpolation science to the full database of 33 native Apple device specifications.
+          Everything you need to know about Contour — from our procedural canvas rendering engines and color interpolation science to the full database of {ALL_DEVICES.length} native Apple device specifications.
         </p>
       </div>
 
@@ -93,7 +94,7 @@ export default function InfoPage() {
             <span className="inline-block w-8 h-8 rounded-lg bg-[var(--badge-bg)] border border-[var(--badge-border)] text-[var(--heading-color)] font-bold text-center leading-8 text-sm">D</span>
             <h3 className="text-lg font-bold text-[var(--heading-color)]">Device Database & Hardware Specifications</h3>
             <p className="text-sm text-[var(--foreground-muted)] leading-relaxed">
-              Contour contains verified screen resolutions and aspect ratios for 33 Apple hardware models ({macCount} Mac laptops, {iphoneCount} iPhones, and {ipadCount} iPads).
+              Contour contains verified screen resolutions and aspect ratios for {ALL_DEVICES.length} Apple hardware models ({macCount} Mac laptops, {iphoneCount} iPhones, {ipadCount} iPads, and {watchCount} Apple Watches).
             </p>
 
             {/* Device list table */}

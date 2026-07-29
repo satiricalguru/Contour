@@ -8,7 +8,7 @@
 
 export type BezelStyle = 'notch' | 'dynamic-island' | 'plain-bezel' | 'home-button';
 
-export type DeviceCategory = 'mac' | 'iphone' | 'ipad';
+export type DeviceCategory = 'mac' | 'iphone' | 'ipad' | 'watch';
 
 export interface DeviceCutout {
   /** Width as % of screen width. */

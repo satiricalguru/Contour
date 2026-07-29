@@ -9,6 +9,7 @@ import { DeviceModel } from '@/lib/devices/types';
 import { MacFrame } from './MacFrame';
 import { PhoneFrame } from './PhoneFrame';
 import { PadFrame } from './PadFrame';
+import { WatchFrame } from './WatchFrame';
 
 interface DeviceFrameProps {
   device: DeviceModel;
@@ -41,6 +42,12 @@ export function DeviceFrame({
         <PadFrame device={device} className={className} inverted={inverted}>
           {children}
         </PadFrame>
+      );
+    case 'watch':
+      return (
+        <WatchFrame device={device} className={className} inverted={inverted}>
+          {children}
+        </WatchFrame>
       );
     default:
       return <div>{children}</div>;
