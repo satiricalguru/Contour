@@ -14,7 +14,7 @@ export function AnimatedHeroBackground() {
         muted
         playsInline
         preload="auto"
-        className="w-full h-full object-cover opacity-80"
+        className="w-full h-full object-cover opacity-80 scale-[1.05] -translate-y-6"
       >
         <source src="/apple-hero.mp4" type="video/mp4" />
       </video>
