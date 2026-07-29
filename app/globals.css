@@ -212,3 +212,11 @@ html.light-theme .github-nav-icon {
   background-color: var(--accent-glow);
   color: inherit;
 }
+
+/* Hide Next.js Dev Indicator Badge overlay */
+nextjs-portal,
+[data-next-badge],
+[data-nextjs-toast] {
+  display: none !important;
+}
+
