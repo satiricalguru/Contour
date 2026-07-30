@@ -13,13 +13,16 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
+
 export const metadata: Metadata = {
   title: "Contour — Generative Wallpaper Studio",
   description:
     "Procedurally generate minimalist, landscape-inspired wallpapers and preview them live inside pixel-accurate Apple device mockups.",
   icons: {
-    icon: "/icon.svg",
-    apple: "/apple-icon.svg",
+    icon: `${basePath}/icon.svg`,
+    shortcut: `${basePath}/icon.svg`,
+    apple: `${basePath}/icon.svg`,
   },
 };
 
@@ -35,6 +38,9 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <head>
+        <link rel="icon" type="image/svg+xml" href={`${basePath}/icon.svg`} />
+        <link rel="shortcut icon" type="image/svg+xml" href={`${basePath}/icon.svg`} />
+        <link rel="apple-touch-icon" href={`${basePath}/icon.svg`} />
         <script
           dangerouslySetInnerHTML={{
             __html: `(function(){try{var t=localStorage.getItem('contour-site-theme');if(t==='light'){document.documentElement.classList.add('light-theme');}}catch(e){}})();`,
