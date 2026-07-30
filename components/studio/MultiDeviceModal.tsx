@@ -283,7 +283,7 @@ export function MultiDeviceModal({
                   {list.map((device) => {
                     const isSelected = selectedIds.includes(device.id);
                     return (
-                      <label
+                      <div
                         key={device.id}
                         onClick={() => toggleDevice(device.id)}
                         className={`flex items-center justify-between p-3 rounded-xl border transition-all duration-200 cursor-pointer select-none ${
@@ -292,22 +292,22 @@ export function MultiDeviceModal({
                             : 'border-[var(--card-border)] hover:border-slate-400/40 opacity-70 hover:opacity-100'
                         }`}
                       >
-                        <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-3 pointer-events-none">
                           <input
                             type="checkbox"
                             checked={isSelected}
-                            onChange={() => {}} // Handled by container onClick
-                            className="w-4 h-4 rounded accent-[var(--heading-color)] cursor-pointer"
+                            readOnly
+                            className="w-4 h-4 rounded accent-[var(--heading-color)] pointer-events-none"
                           />
                           <span className="text-xs font-semibold text-[var(--heading-color)]">
                             {device.displayName}
                           </span>
                         </div>
 
-                        <span className="text-[10px] font-mono text-[var(--foreground-muted)]">
+                        <span className="text-[10px] font-mono text-[var(--foreground-muted)] pointer-events-none">
                           {device.resolution.width} × {device.resolution.height}
                         </span>
-                      </label>
+                      </div>
                     );
                   })}
                 </div>
