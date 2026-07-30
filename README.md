@@ -22,7 +22,7 @@
 - 🌈 **19 Handcrafted Mood Palettes**: Vibrant gradients inspired by Apple design language (*Midnight Jade*, *Pacific Blue*, *Sunset Horizon*, *Aurora Borealis*, *Neon Cyberpunk*, *Minimal Mono*, and more).
 - ⚡ **Real-time OffscreenCanvas 4K PNG Export**: Instant pixel-perfect rendering up to native 3456 × 2234 resolution without DOM freezing.
 - 🌓 **Dual-Mode System**: Seamless support for both Light Mode and Dark Mode UI alongside an independent Wallpaper Polarity Toggle.
-- 📱 **33 Verified Hardware Specifications**: Screen resolutions, aspect ratios, and bezel treatments (Dynamic Island, Notch, Plain Bezel, Chin Home Button) mapped directly to official Apple specs.
+- 📱 **38 Verified Hardware Specifications**: Screen resolutions, aspect ratios, and bezel treatments (Dynamic Island, Notch, Plain Bezel, Chin Home Button) mapped directly to official Apple specs.
 - 🚀 **100% Client-Side & Zero Stock Assets**: No backend databases, external API calls, or stock JPEGs. Lightweight, instant, and private.
 
 ---
@@ -32,7 +32,7 @@
 - **Framework**: [Next.js 16](https://nextjs.org/) (App Router, React 19, Turbopack)
 - **Language**: [TypeScript](https://www.typescriptlang.org/)
 - **Styling**: [Tailwind CSS v4](https://tailwindcss.com/) with CSS variables
-- **State Management**: [Zustand](https://github.com/pmndrs/zustand) with persistent `localStorage` support
+- **State Management**: [Zustand](https://github.com/pmndrez/zustand) with persistent `localStorage` support
 - **Rendering Engine**: HTML5 Canvas 2D API + `OffscreenCanvas`
 - **Testing**: [Vitest](https://vitest.dev/)
 
@@ -48,7 +48,7 @@
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/jatinpandey/Contour.git
+   git clone https://github.com/satiricalguru/Contour.git
    cd Contour
    ```
 
@@ -71,7 +71,7 @@
 | Key | Action |
 | --- | --- |
 | `Space` | Instantly randomize seed & generate a new variation |
-| `Dark / Light` | Toggle wallpaper polarity without altering the color palette |
+| `D` or `L` | Toggle wallpaper polarity (Dark / Light mode) |
 
 ---
 

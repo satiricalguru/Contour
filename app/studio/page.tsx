@@ -27,6 +27,7 @@ function StudioContent() {
     inverted,
     modelId,
     shuffle,
+    togglePolarity,
     hydrateFromParams,
   } = useContourStore();
 
@@ -61,19 +62,22 @@ function StudioContent() {
 
   const device = useMemo(() => getDeviceById(modelId), [modelId]);
 
-  // Keyboard shortcuts
+  // Keyboard shortcuts (Space = Shuffle, D/L = Toggle Dark/Light polarity)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.target instanceof HTMLInputElement || e.target instanceof HTMLSelectElement) return;
       if (e.code === 'Space') {
         e.preventDefault();
         shuffle();
+      } else if (e.code === 'KeyD' || e.code === 'KeyL') {
+        e.preventDefault();
+        togglePolarity();
       }
     };
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [shuffle]);
+  }, [shuffle, togglePolarity]);
 
   // Canvas size — render at a reasonable preview resolution
   const previewW = device ? Math.min(device.resolution.width, 800) : 800;

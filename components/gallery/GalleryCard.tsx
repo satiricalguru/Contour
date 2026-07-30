@@ -44,7 +44,7 @@ export function GalleryCard({ wallpaper }: GalleryCardProps) {
 
   // 2. Asynchronous Canvas Rendering when visible
   useEffect(() => {
-    if (!isVisible || isRendered) return;
+    if (!isVisible || isRendered || !pattern || !palette) return;
 
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -73,7 +73,7 @@ export function GalleryCard({ wallpaper }: GalleryCardProps) {
     }, 0);
 
     return () => clearTimeout(renderTimer);
-  }, [isVisible, isRendered, wallpaper]);
+  }, [isVisible, isRendered, wallpaper, pattern, palette]);
 
   const studioParams = new URLSearchParams({
     pattern: wallpaper.patternId,

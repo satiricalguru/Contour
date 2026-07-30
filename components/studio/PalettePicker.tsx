@@ -12,7 +12,7 @@ export function PalettePicker() {
 
   return (
     <div className="space-y-2">
-      <h3 className="text-xs font-semibold uppercase tracking-wider text-white/50 px-1">
+      <h3 className="text-xs font-semibold uppercase tracking-wider text-[var(--foreground-muted)] px-1">
         Palette
       </h3>
       <div className="grid grid-cols-2 gap-2">
@@ -24,15 +24,15 @@ export function PalettePicker() {
             <button
               key={pal.id}
               onClick={() => setPalette(pal.id)}
-              className={`group flex flex-col gap-1 rounded-lg p-1.5 transition-all duration-200 ${
+              className={`group flex flex-col gap-1 rounded-lg p-1.5 transition-all duration-200 cursor-pointer ${
                 isActive
-                  ? 'bg-white/10 ring-2 ring-white/40'
-                  : 'hover:bg-white/5'
+                  ? 'bg-[var(--pill-bg)] ring-2 ring-[var(--heading-color)]'
+                  : 'hover:bg-[var(--pill-bg)]'
               }`}
               aria-label={`Select ${pal.name} palette`}
             >
               {/* Gradient swatch */}
-              <div className="flex h-4 rounded-md overflow-hidden w-full">
+              <div className="flex h-4 rounded-md overflow-hidden w-full border border-[var(--card-border)]">
                 {ramp.map((color, i) => (
                   <div
                     key={i}
@@ -41,7 +41,7 @@ export function PalettePicker() {
                   />
                 ))}
               </div>
-              <span className="text-[10px] text-white/60 font-medium text-left leading-none">
+              <span className="text-[10px] text-[var(--foreground-muted)] group-hover:text-[var(--heading-color)] font-medium text-left leading-none">
                 {pal.name}
               </span>
             </button>

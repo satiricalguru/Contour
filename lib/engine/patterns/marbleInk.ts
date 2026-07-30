@@ -22,8 +22,8 @@ export function drawMarbleInk(
   const scale = rng.range(2.5, 5);
   const warpStrength = rng.range(1.5, 3.5);
 
-  // Render pixel-by-pixel for the marble effect (adaptive step for high performance)
-  const step = Math.max(2, Math.ceil(w / 320));
+  // Render with high detail (adaptive step scaled to canvas dimension)
+  const step = Math.max(2, Math.min(4, Math.ceil(w / 600)));
 
   for (let y = 0; y < h; y += step) {
     for (let x = 0; x < w; x += step) {

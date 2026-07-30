@@ -56,7 +56,7 @@ export function PatternPicker() {
 
   return (
     <div className="space-y-2">
-      <h3 className="text-xs font-semibold uppercase tracking-wider text-white/50 px-1">
+      <h3 className="text-xs font-semibold uppercase tracking-wider text-[var(--foreground-muted)] px-1">
         Pattern
       </h3>
       <div className="grid grid-cols-3 gap-2">
@@ -64,10 +64,10 @@ export function PatternPicker() {
           <button
             key={p.id}
             onClick={() => setPattern(p.id)}
-            className={`group relative aspect-[3/2] rounded-lg overflow-hidden border-2 transition-all duration-200 ${
+            className={`group relative aspect-[3/2] rounded-lg overflow-hidden border-2 transition-all duration-200 cursor-pointer ${
               patternId === p.id
-                ? 'border-white/60 shadow-lg shadow-white/10'
-                : 'border-white/10 hover:border-white/30'
+                ? 'border-[var(--heading-color)] shadow-md'
+                : 'border-[var(--card-border)] hover:border-slate-400/40'
             }`}
             title={p.name}
             aria-label={`Select ${p.name} pattern`}

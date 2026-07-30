@@ -51,11 +51,12 @@ export function drawFlowingHills(
 
     // Draw silhouette pine trees on the two frontmost ridges
     if (layer >= layers - 2) {
-      const treeCount = Math.floor(w / 80) + rng.int(2, 6);
+      const treeRng = new Rng(seed * 1000 + layer * 777);
+      const treeCount = Math.floor(w / 80) + treeRng.int(2, 6);
       const treeColor = sampleRamp(colors, Math.min(t + 0.08, 1));
 
       for (let ti = 0; ti < treeCount; ti++) {
-        const tx = rng.range(w * 0.02, w * 0.98);
+        const tx = treeRng.range(w * 0.02, w * 0.98);
         // Find the ridge Y at this x position
         const ptIdx = Math.min(
           Math.floor((tx / w) * points.length),
@@ -63,8 +64,8 @@ export function drawFlowingHills(
         );
         const ridgeY = points[Math.max(0, ptIdx)].y;
 
-        const treeH = h * rng.range(0.02, 0.05);
-        const treeW = treeH * rng.range(0.25, 0.45);
+        const treeH = h * treeRng.range(0.02, 0.05);
+        const treeW = treeH * treeRng.range(0.25, 0.45);
 
         drawPineTree(ctx, tx, ridgeY, treeW, treeH, treeColor);
       }

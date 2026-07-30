@@ -29,9 +29,9 @@ export function drawTopographicContours(
   ctx.lineWidth = lineWidth;
   ctx.lineCap = 'round';
 
-  const step = Math.max(3, Math.floor(w / 180));
+  const cols = 120;
+  const step = w / cols;
   const rows = Math.ceil(h / step);
-  const cols = Math.ceil(w / step);
 
   // Pre-calculate elevation grid once (15x performance boost)
   const grid: number[][] = new Array(rows + 1);

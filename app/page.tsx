@@ -73,7 +73,7 @@ export default function Homepage() {
             {[
               { value: '13', label: 'Algorithms' },
               { value: '19', label: 'Color Ramps' },
-              { value: '37', label: 'Device Profiles' },
+              { value: '38', label: 'Device Profiles' },
               { value: '4K', label: 'Lossless Export' },
             ].map((stat) => (
               <div key={stat.label} className="space-y-1.5">

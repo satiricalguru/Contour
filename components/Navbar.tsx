@@ -5,13 +5,22 @@
  */
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 export function Navbar() {
   const pathname = usePathname();
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+  const [pillStyle, setPillStyle] = useState<{ left: number; top: number; width: number; height: number; opacity: number }>({
+    left: 0,
+    top: 0,
+    width: 0,
+    height: 0,
+    opacity: 0,
+  });
+
+  const itemRefs = useRef<(HTMLAnchorElement | null)[]>([]);
 
   // Hydrate theme preference on mount
   useEffect(() => {
@@ -43,6 +52,33 @@ export function Navbar() {
     { href: '/studio', label: 'Studio' },
     { href: '/info', label: 'Information' },
   ];
+
+  const activeIndex = navItems.findIndex((item) =>
+    item.href === '/' ? pathname === '/' : pathname.startsWith(item.href)
+  );
+
+  useEffect(() => {
+    const updatePillPosition = () => {
+      if (activeIndex === -1) {
+        setPillStyle((s) => ({ ...s, opacity: 0 }));
+        return;
+      }
+      const activeEl = itemRefs.current[activeIndex];
+      if (activeEl) {
+        setPillStyle({
+          left: activeEl.offsetLeft,
+          top: activeEl.offsetTop,
+          width: activeEl.offsetWidth,
+          height: activeEl.offsetHeight,
+          opacity: 1,
+        });
+      }
+    };
+
+    updatePillPosition();
+    window.addEventListener('resize', updatePillPosition);
+    return () => window.removeEventListener('resize', updatePillPosition);
+  }, [activeIndex, pathname, theme]);
 
   const isLight = theme === 'light';
 
@@ -88,32 +124,47 @@ export function Navbar() {
             </span>
           </Link>
 
-          {/* Navigation Pill Bar */}
+          {/* Navigation Pill Bar with Liquid Glass Sliding Indicator */}
           <div
-            className={`flex items-center gap-1 backdrop-blur-2xl border rounded-full p-1 shadow-sm transition-colors ${
+            className={`relative flex items-center gap-1 backdrop-blur-2xl border rounded-full p-1 shadow-sm transition-colors ${
               isLight
                 ? 'bg-slate-200/60 border-slate-300/80'
                 : 'bg-white/[0.04] border-white/[0.08]'
             }`}
           >
-            {navItems.map((item) => {
-              const isActive =
-                item.href === '/'
-                  ? pathname === '/'
-                  : pathname.startsWith(item.href);
+            {/* Sliding Liquid Glass Indicator */}
+            <div
+              className={`absolute top-0 left-0 rounded-full transition-all duration-350 ease-[cubic-bezier(0.16,1,0.3,1)] pointer-events-none shadow-md ${
+                isLight
+                  ? 'bg-slate-900 shadow-slate-900/20 border border-slate-700/30'
+                  : 'bg-white shadow-[0_2px_16px_rgba(255,255,255,0.25)] border border-white/40'
+              }`}
+              style={{
+                transform: `translate3d(${pillStyle.left}px, ${pillStyle.top}px, 0)`,
+                width: `${pillStyle.width}px`,
+                height: `${pillStyle.height}px`,
+                opacity: pillStyle.opacity,
+              }}
+            />
+
+            {navItems.map((item, index) => {
+              const isActive = index === activeIndex;
 
               return (
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`px-4 py-1.5 text-xs sm:text-sm font-medium rounded-full transition-all duration-200 ${
+                  ref={(el) => {
+                    itemRefs.current[index] = el;
+                  }}
+                  className={`relative z-10 px-4 py-1.5 text-xs sm:text-sm font-medium rounded-full transition-colors duration-200 ${
                     isActive
                       ? isLight
-                        ? 'bg-slate-900 text-white font-semibold shadow-md'
-                        : 'bg-white text-black font-semibold shadow-md'
+                        ? 'text-white font-semibold'
+                        : 'text-black font-semibold'
                       : isLight
-                      ? 'text-slate-600 hover:text-slate-900 hover:bg-slate-300/50'
-                      : 'text-white/60 hover:text-white hover:bg-white/[0.08]'
+                      ? 'text-slate-600 hover:text-slate-900'
+                      : 'text-white/60 hover:text-white'
                   }`}
                 >
                   {item.label}
@@ -158,7 +209,7 @@ export function Navbar() {
 
             {/* GitHub Link Button */}
             <a
-              href="https://github.com/jatinpandey/Contour"
+              href="https://github.com/satiricalguru/Contour"
               target="_blank"
               rel="noopener noreferrer"
               className={`p-2.5 rounded-full border transition-all duration-200 ${

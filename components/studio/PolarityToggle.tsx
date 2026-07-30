@@ -4,23 +4,68 @@
  */
 'use client';
 
+import { useState, useEffect, useRef } from 'react';
 import { useContourStore } from '@/lib/store';
 
 export function PolarityToggle() {
   const { inverted, togglePolarity } = useContourStore();
+  const activeKey = inverted ? 'light' : 'dark';
+
+  const [pillStyle, setPillStyle] = useState<{ left: number; top: number; width: number; height: number; opacity: number }>({
+    left: 0,
+    top: 0,
+    width: 0,
+    height: 0,
+    opacity: 0,
+  });
+
+  const buttonRefs = useRef<{ [key: string]: HTMLButtonElement | null }>({});
+
+  useEffect(() => {
+    const updatePillPosition = () => {
+      const activeEl = buttonRefs.current[activeKey];
+      if (activeEl) {
+        setPillStyle({
+          left: activeEl.offsetLeft,
+          top: activeEl.offsetTop,
+          width: activeEl.offsetWidth,
+          height: activeEl.offsetHeight,
+          opacity: 1,
+        });
+      }
+    };
+
+    updatePillPosition();
+    window.addEventListener('resize', updatePillPosition);
+    return () => window.removeEventListener('resize', updatePillPosition);
+  }, [activeKey]);
 
   return (
     <div className="space-y-2">
       <h3 className="text-xs font-semibold uppercase tracking-wider text-[var(--foreground-muted)] px-1">
         Mode
       </h3>
-      <div className="flex gap-2">
+      <div className="relative flex gap-1 bg-[var(--pill-bg)] border border-[var(--card-border)] rounded-lg p-1">
+        {/* Sliding Liquid Glass Indicator */}
+        <div
+          className="absolute top-0 left-0 rounded-md bg-[var(--heading-color)] shadow-sm transition-all duration-350 ease-[cubic-bezier(0.16,1,0.3,1)] pointer-events-none"
+          style={{
+            transform: `translate3d(${pillStyle.left}px, ${pillStyle.top}px, 0)`,
+            width: `${pillStyle.width}px`,
+            height: `${pillStyle.height}px`,
+            opacity: pillStyle.opacity,
+          }}
+        />
+
         <button
+          ref={(el) => {
+            buttonRefs.current['dark'] = el;
+          }}
           onClick={() => !inverted || togglePolarity()}
-          className={`flex-1 flex items-center justify-center gap-2 rounded-lg py-2 px-3 text-sm font-medium transition-all duration-200 cursor-pointer ${
+          className={`relative z-10 flex-1 flex items-center justify-center gap-2 rounded-md py-2 px-3 text-sm font-medium transition-colors duration-200 cursor-pointer ${
             !inverted
-              ? 'bg-[var(--heading-color)] text-[var(--background)] font-semibold shadow-xs'
-              : 'text-[var(--foreground-muted)] hover:bg-white/5 hover:text-[var(--heading-color)]'
+              ? 'text-[var(--background)] font-semibold'
+              : 'text-[var(--foreground-muted)] hover:text-[var(--heading-color)]'
           }`}
           aria-label="Dark wallpaper mode"
         >
@@ -29,12 +74,16 @@ export function PolarityToggle() {
           </svg>
           Dark
         </button>
+
         <button
+          ref={(el) => {
+            buttonRefs.current['light'] = el;
+          }}
           onClick={() => inverted || togglePolarity()}
-          className={`flex-1 flex items-center justify-center gap-2 rounded-lg py-2 px-3 text-sm font-medium transition-all duration-200 cursor-pointer ${
+          className={`relative z-10 flex-1 flex items-center justify-center gap-2 rounded-md py-2 px-3 text-sm font-medium transition-colors duration-200 cursor-pointer ${
             inverted
-              ? 'bg-[var(--heading-color)] text-[var(--background)] font-semibold shadow-xs'
-              : 'text-[var(--foreground-muted)] hover:bg-white/5 hover:text-[var(--heading-color)]'
+              ? 'text-[var(--background)] font-semibold'
+              : 'text-[var(--foreground-muted)] hover:text-[var(--heading-color)]'
           }`}
           aria-label="Light wallpaper mode"
         >

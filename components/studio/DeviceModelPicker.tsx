@@ -4,7 +4,7 @@
  */
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useContourStore } from '@/lib/store';
 import { getDevicesByCategory, DeviceCategory } from '@/lib/devices';
 
@@ -61,25 +61,73 @@ export function DeviceModelPicker() {
     useContourStore();
 
   const models = getDevicesByCategory(deviceCategory);
+  const activeIndex = CATEGORIES.findIndex((c) => c.id === deviceCategory);
+
+  const [pillStyle, setPillStyle] = useState<{ left: number; top: number; width: number; height: number; opacity: number }>({
+    left: 0,
+    top: 0,
+    width: 0,
+    height: 0,
+    opacity: 0,
+  });
+
+  const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
+
+  useEffect(() => {
+    const updatePillPosition = () => {
+      if (activeIndex === -1) {
+        setPillStyle((s) => ({ ...s, opacity: 0 }));
+        return;
+      }
+      const activeEl = tabRefs.current[activeIndex];
+      if (activeEl) {
+        setPillStyle({
+          left: activeEl.offsetLeft,
+          top: activeEl.offsetTop,
+          width: activeEl.offsetWidth,
+          height: activeEl.offsetHeight,
+          opacity: 1,
+        });
+      }
+    };
+
+    updatePillPosition();
+    window.addEventListener('resize', updatePillPosition);
+    return () => window.removeEventListener('resize', updatePillPosition);
+  }, [activeIndex, deviceCategory]);
 
   return (
     <div className="space-y-3">
-      <h3 className="text-xs font-semibold uppercase tracking-wider text-inherit opacity-60 px-1">
+      <h3 className="text-xs font-semibold uppercase tracking-wider text-[var(--foreground-muted)] px-1">
         Device
       </h3>
 
-      {/* Category tabs */}
-      <div className="flex gap-1 bg-white/5 border border-white/10 rounded-lg p-1">
-        {CATEGORIES.map((cat) => {
+      {/* Category tabs with sliding liquid glass pill */}
+      <div className="relative flex gap-1 bg-[var(--pill-bg)] border border-[var(--card-border)] rounded-lg p-1">
+        {/* Sliding Liquid Glass Indicator */}
+        <div
+          className="absolute top-0 left-0 rounded-md bg-[var(--heading-color)] shadow-sm transition-all duration-350 ease-[cubic-bezier(0.16,1,0.3,1)] pointer-events-none"
+          style={{
+            transform: `translate3d(${pillStyle.left}px, ${pillStyle.top}px, 0)`,
+            width: `${pillStyle.width}px`,
+            height: `${pillStyle.height}px`,
+            opacity: pillStyle.opacity,
+          }}
+        />
+
+        {CATEGORIES.map((cat, idx) => {
           const isSelected = deviceCategory === cat.id;
           return (
             <button
               key={cat.id}
+              ref={(el) => {
+                tabRefs.current[idx] = el;
+              }}
               onClick={() => setDeviceCategory(cat.id)}
-              className={`flex-1 flex items-center justify-center gap-1.5 rounded-md py-1.5 text-xs font-medium transition-all duration-200 ${
+              className={`relative z-10 flex-1 flex items-center justify-center gap-1.5 rounded-md py-1.5 text-xs font-medium transition-colors duration-200 cursor-pointer ${
                 isSelected
-                  ? 'bg-white/20 text-inherit font-semibold shadow-sm'
-                  : 'opacity-60 hover:opacity-100 hover:bg-white/10'
+                  ? 'text-[var(--background)] font-semibold'
+                  : 'text-[var(--foreground-muted)] hover:text-[var(--heading-color)]'
               }`}
               aria-label={`Select ${cat.label} device category`}
             >
@@ -94,11 +142,11 @@ export function DeviceModelPicker() {
       <select
         value={modelId}
         onChange={(e) => setModelId(e.target.value)}
-        className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-inherit appearance-none cursor-pointer hover:bg-white/10 transition-colors focus:outline-none focus:ring-2 focus:ring-white/20"
+        className="w-full bg-[var(--pill-bg)] border border-[var(--card-border)] rounded-lg px-3 py-2 text-sm text-[var(--heading-color)] appearance-none cursor-pointer hover:border-slate-400/40 transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--heading-color)]"
         aria-label="Select device model"
       >
         {models.map((m) => (
-          <option key={m.id} value={m.id} className="bg-[#1a1a1a] text-white">
+          <option key={m.id} value={m.id} className="bg-slate-900 text-white">
             {m.displayName}
             {m.generation ? ` (${m.generation})` : ''}
           </option>
@@ -110,7 +158,7 @@ export function DeviceModelPicker() {
         const selected = models.find((m) => m.id === modelId);
         if (!selected) return null;
         return (
-          <div className="text-[10px] opacity-40 px-1 flex items-center justify-between font-mono">
+          <div className="text-[10px] text-[var(--foreground-muted)] px-1 flex items-center justify-between font-mono">
             <span>{selected.resolution.width} × {selected.resolution.height} px</span>
             <span className="capitalize">{selected.bezelStyle.replace('-', ' ')}</span>
           </div>

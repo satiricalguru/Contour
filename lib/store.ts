@@ -7,7 +7,7 @@
 'use client';
 
 import { create } from 'zustand';
-import { DeviceCategory } from './devices';
+import { DeviceCategory, ALL_DEVICES } from './devices';
 import { PATTERNS } from './engine/patterns';
 import { PALETTES } from '@/data/palettes';
 
@@ -146,9 +146,10 @@ export const useContourStore = create<ContourState>((set, get) => ({
       if (!isNaN(seedNum)) updates.seed = seedNum;
     }
     if (inv !== null) updates.inverted = inv === 'true' || inv === '1';
-    if (cat && ['mac', 'iphone', 'ipad'].includes(cat))
+    if (cat && ['mac', 'iphone', 'ipad', 'watch'].includes(cat))
       updates.deviceCategory = cat as DeviceCategory;
-    if (model) updates.modelId = model;
+    if (model && ALL_DEVICES.some((d) => d.id === model))
+      updates.modelId = model;
 
     if (Object.keys(updates).length > 0) set(updates);
   },

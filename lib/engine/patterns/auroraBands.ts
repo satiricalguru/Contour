@@ -31,8 +31,8 @@ export function drawAuroraBands(
     const offset = rng.range(0, 100);
     const warpScale = rng.range(0.8, 2.0);
 
-    // Draw the band as a series of thin vertical strips
-    const stripCount = Math.max(20, Math.floor(bandWidth / 2));
+    // Draw the band as a series of thin vertical strips (resolution-independent count for consistent alpha blending)
+    const stripCount = 40;
 
     for (let s = 0; s < stripCount; s++) {
       const st = s / stripCount;

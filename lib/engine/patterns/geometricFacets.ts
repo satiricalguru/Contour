@@ -113,7 +113,7 @@ export function drawGeometricFacets(
 
     ctx.fillStyle = sampleRamp(colors, t);
     ctx.strokeStyle = sampleRamp(colors, t);
-    ctx.lineWidth = 0.5;
+    ctx.lineWidth = Math.max(0.5, Math.min(w, h) * 0.001);
 
     ctx.beginPath();
     ctx.moveTo(tri.a.x, tri.a.y);

@@ -3,7 +3,8 @@
  */
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect, useRef } from 'react';
+import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { CURATED_WALLPAPERS } from '@/data/wallpapers';
 import { PALETTES } from '@/data/palettes';
@@ -13,16 +14,45 @@ import { GalleryCard } from './GalleryCard';
 
 export function GalleryGrid() {
   const { favorites, removeFavorite } = useContourStore();
-  const [activeTab, setActiveTab] = useState<'catalog' | 'favorites'>(() => {
-    if (typeof window !== 'undefined') {
-      const params = new URLSearchParams(window.location.search);
-      if (params.get('tab') === 'favorites') return 'favorites';
-    }
-    return 'catalog';
-  });
+  const searchParams = useSearchParams();
+  const tabParam = searchParams.get('tab');
+  const [userTab, setUserTab] = useState<'catalog' | 'favorites' | null>(null);
+
+  const activeTab = userTab ?? (tabParam === 'favorites' ? 'favorites' : 'catalog');
+  const setActiveTab = (tab: 'catalog' | 'favorites') => setUserTab(tab);
+
   const [filterPalette, setFilterPalette] = useState<string>('all');
   const [filterMode, setFilterMode] = useState<'all' | 'dark' | 'light'>('all');
   const [filterPattern, setFilterPattern] = useState<string>('all');
+
+  const [pillStyle, setPillStyle] = useState<{ left: number; top: number; width: number; height: number; opacity: number }>({
+    left: 0,
+    top: 0,
+    width: 0,
+    height: 0,
+    opacity: 0,
+  });
+
+  const tabRefs = useRef<{ [key: string]: HTMLButtonElement | null }>({});
+
+  useEffect(() => {
+    const updatePillPosition = () => {
+      const activeEl = tabRefs.current[activeTab];
+      if (activeEl) {
+        setPillStyle({
+          left: activeEl.offsetLeft,
+          top: activeEl.offsetTop,
+          width: activeEl.offsetWidth,
+          height: activeEl.offsetHeight,
+          opacity: 1,
+        });
+      }
+    };
+
+    updatePillPosition();
+    window.addEventListener('resize', updatePillPosition);
+    return () => window.removeEventListener('resize', updatePillPosition);
+  }, [activeTab]);
 
   const filteredCatalog = useMemo(() => {
     return CURATED_WALLPAPERS.filter((w) => {
@@ -48,31 +78,54 @@ export function GalleryGrid() {
     <div className="space-y-8">
       {/* Primary Tab Switcher: Catalog vs Saved Favorites */}
       <div className="flex items-center justify-between border-b border-[var(--card-border)] pb-4">
-        <div className="flex items-center gap-2 bg-[var(--pill-bg)] border border-[var(--card-border)] rounded-2xl p-1">
+        <div className="relative flex items-center gap-1 bg-[var(--pill-bg)] border border-[var(--card-border)] rounded-2xl p-1">
+          {/* Sliding Liquid Glass Indicator */}
+          <div
+            className="absolute top-0 left-0 rounded-xl bg-[var(--heading-color)] shadow-sm transition-all duration-350 ease-[cubic-bezier(0.16,1,0.3,1)] pointer-events-none"
+            style={{
+              transform: `translate3d(${pillStyle.left}px, ${pillStyle.top}px, 0)`,
+              width: `${pillStyle.width}px`,
+              height: `${pillStyle.height}px`,
+              opacity: pillStyle.opacity,
+            }}
+          />
+
           <button
+            ref={(el) => {
+              tabRefs.current['catalog'] = el;
+            }}
             onClick={() => setActiveTab('catalog')}
-            className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all duration-200 cursor-pointer ${
+            className={`relative z-10 px-4 py-2 rounded-xl text-xs font-semibold transition-colors duration-200 cursor-pointer ${
               activeTab === 'catalog'
-                ? 'bg-[var(--heading-color)] text-[var(--background)] font-semibold shadow-sm'
+                ? 'text-[var(--background)] font-semibold'
                 : 'text-[var(--foreground-muted)] hover:text-[var(--heading-color)]'
             }`}
           >
             Curated Catalog ({CURATED_WALLPAPERS.length})
           </button>
           <button
+            ref={(el) => {
+              tabRefs.current['favorites'] = el;
+            }}
             onClick={() => setActiveTab('favorites')}
-            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold transition-all duration-200 cursor-pointer ${
+            className={`relative z-10 flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold transition-colors duration-200 cursor-pointer ${
               activeTab === 'favorites'
-                ? 'bg-rose-500/15 border border-rose-500/30 text-rose-600 dark:text-rose-400 font-semibold shadow-xs'
+                ? 'text-[var(--background)] font-semibold'
                 : 'text-[var(--foreground-muted)] hover:text-[var(--heading-color)]'
             }`}
           >
             <svg
-              className={`w-3.5 h-3.5 ${favorites.length > 0 ? 'text-rose-500 fill-current' : 'text-current'}`}
+              className={`w-3.5 h-3.5 transition-colors ${
+                activeTab === 'favorites'
+                  ? 'text-rose-500 fill-current'
+                  : favorites.length > 0
+                  ? 'text-rose-500 fill-current'
+                  : 'text-current'
+              }`}
               viewBox="0 0 20 20"
-              fill={favorites.length > 0 ? 'currentColor' : 'none'}
+              fill={activeTab === 'favorites' || favorites.length > 0 ? 'currentColor' : 'none'}
               stroke="currentColor"
-              strokeWidth={favorites.length > 0 ? '0' : '1.5'}
+              strokeWidth={activeTab === 'favorites' || favorites.length > 0 ? '0' : '1.5'}
             >
               <path
                 fillRule="evenodd"
@@ -93,58 +146,65 @@ export function GalleryGrid() {
 
       {/* VIEW 1: CURATED CATALOG */}
       {activeTab === 'catalog' && (
-        <div className="space-y-8">
-          {/* Filters */}
-          <div className="flex flex-wrap gap-3 items-center">
-            {/* Pattern filter */}
-            <select
-              value={filterPattern}
-              onChange={(e) => setFilterPattern(e.target.value)}
-              className="bg-[var(--pill-bg)] border border-[var(--card-border)] rounded-xl px-3 py-1.5 text-xs font-medium text-[var(--heading-color)] cursor-pointer hover:border-slate-400/40 transition-colors focus:outline-none"
-              aria-label="Filter by pattern"
-            >
-              <option value="all" className="bg-slate-900 text-white">All Patterns</option>
-              {PATTERNS.map((p) => (
-                <option key={p.id} value={p.id} className="bg-slate-900 text-white">
-                  {p.name}
-                </option>
-              ))}
-            </select>
+        <div className="space-y-12">
+          {/* Filter Bar */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 p-4 bg-[var(--card-bg)] border border-[var(--card-border)] rounded-2xl">
+            {/* Pattern Filter */}
+            <div>
+              <label className="block text-[10px] font-semibold uppercase tracking-wider text-[var(--foreground-muted)] mb-1">
+                Pattern
+              </label>
+              <select
+                value={filterPattern}
+                onChange={(e) => setFilterPattern(e.target.value)}
+                className="w-full bg-[var(--pill-bg)] border border-[var(--card-border)] rounded-xl px-3 py-1.5 text-xs text-[var(--heading-color)] focus:outline-none focus:ring-1 focus:ring-[var(--heading-color)] cursor-pointer"
+              >
+                <option value="all">All Patterns ({PATTERNS.length})</option>
+                {PATTERNS.map((p) => (
+                  <option key={p.id} value={p.id}>
+                    {p.name}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-            {/* Palette filter */}
-            <select
-              value={filterPalette}
-              onChange={(e) => setFilterPalette(e.target.value)}
-              className="bg-[var(--pill-bg)] border border-[var(--card-border)] rounded-xl px-3 py-1.5 text-xs font-medium text-[var(--heading-color)] cursor-pointer hover:border-slate-400/40 transition-colors focus:outline-none"
-              aria-label="Filter by palette"
-            >
-              <option value="all" className="bg-slate-900 text-white">All Palettes</option>
-              {PALETTES.map((p) => (
-                <option key={p.id} value={p.id} className="bg-slate-900 text-white">
-                  {p.name}
-                </option>
-              ))}
-            </select>
+            {/* Palette Filter */}
+            <div>
+              <label className="block text-[10px] font-semibold uppercase tracking-wider text-[var(--foreground-muted)] mb-1">
+                Palette
+              </label>
+              <select
+                value={filterPalette}
+                onChange={(e) => setFilterPalette(e.target.value)}
+                className="w-full bg-[var(--pill-bg)] border border-[var(--card-border)] rounded-xl px-3 py-1.5 text-xs text-[var(--heading-color)] focus:outline-none focus:ring-1 focus:ring-[var(--heading-color)] cursor-pointer"
+              >
+                <option value="all">All Palettes ({PALETTES.length})</option>
+                {PALETTES.map((p) => (
+                  <option key={p.id} value={p.id}>
+                    {p.name}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-            {/* Mode filter */}
-            <div className="flex gap-1 bg-[var(--pill-bg)] border border-[var(--card-border)] rounded-xl p-0.5">
-              {(['all', 'dark', 'light'] as const).map((mode) => (
-                <button
-                  key={mode}
-                  onClick={() => setFilterMode(mode)}
-                  className={`px-3 py-1 rounded-lg text-xs font-medium transition-all duration-200 capitalize cursor-pointer ${
-                    filterMode === mode
-                      ? 'bg-[var(--heading-color)] text-[var(--background)] font-semibold shadow-xs'
-                      : 'text-[var(--foreground-muted)] hover:text-[var(--heading-color)]'
-                  }`}
-                >
-                  {mode}
-                </button>
-              ))}
+            {/* Mode Filter */}
+            <div>
+              <label className="block text-[10px] font-semibold uppercase tracking-wider text-[var(--foreground-muted)] mb-1">
+                Polarity Mode
+              </label>
+              <select
+                value={filterMode}
+                onChange={(e) => setFilterMode(e.target.value as 'all' | 'dark' | 'light')}
+                className="w-full bg-[var(--pill-bg)] border border-[var(--card-border)] rounded-xl px-3 py-1.5 text-xs text-[var(--heading-color)] focus:outline-none focus:ring-1 focus:ring-[var(--heading-color)] cursor-pointer"
+              >
+                <option value="all">All Modes</option>
+                <option value="dark">Dark Only</option>
+                <option value="light">Light Only</option>
+              </select>
             </div>
           </div>
 
-          {/* Grouped grid */}
+          {/* Grouped Pattern Sections */}
           {Object.entries(groupedCatalog).map(([patternId, wallpapers]) => {
             const pattern = PATTERNS.find((p) => p.id === patternId);
             return (
@@ -169,9 +229,15 @@ export function GalleryGrid() {
           })}
 
           {filteredCatalog.length === 0 && (
-            <div className="text-center py-20 text-[var(--foreground-muted)] space-y-2">
-              <p className="text-base font-semibold text-[var(--heading-color)]">No wallpapers match your filters</p>
-              <p className="text-xs">Try clearing or adjusting your pattern, palette, or mode filters above.</p>
+            <div className="relative text-center py-16 px-8 rounded-3xl border border-[var(--card-border)] bg-[var(--card-bg)] backdrop-blur-xl shadow-lg max-w-md mx-auto space-y-3">
+              <div className="w-12 h-12 rounded-2xl bg-[var(--pill-bg)] border border-[var(--card-border)] flex items-center justify-center mx-auto text-[var(--foreground-muted)]">
+                <svg className="w-6 h-6 stroke-current" viewBox="0 0 24 24" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="11" cy="11" r="8" />
+                  <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                </svg>
+              </div>
+              <p className="text-base font-bold text-[var(--heading-color)]">No wallpapers match your filters</p>
+              <p className="text-xs text-[var(--foreground-muted)] max-w-xs mx-auto">Try adjusting your pattern, palette, or mode options above.</p>
             </div>
           )}
         </div>
@@ -212,26 +278,36 @@ export function GalleryGrid() {
               })}
             </div>
           ) : (
-            <div className="text-center py-24 bg-[var(--card-bg)] border border-[var(--card-border)] rounded-3xl p-8 space-y-4 max-w-lg mx-auto">
-              <div className="w-14 h-14 rounded-full bg-rose-500/10 border border-rose-500/20 text-rose-500 flex items-center justify-center mx-auto shadow-inner">
-                <svg className="w-6 h-6 fill-current" viewBox="0 0 20 20">
+            <div className="relative overflow-hidden text-center py-20 px-8 bg-gradient-to-b from-[var(--card-bg)] via-[var(--card-bg)] to-rose-500/[0.04] border border-[var(--card-border)] rounded-3xl backdrop-blur-2xl shadow-2xl space-y-6 max-w-lg mx-auto group">
+              {/* Ambient Rose Glass Glow Orb */}
+              <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-64 h-64 bg-gradient-to-br from-rose-500/15 via-rose-500/5 to-transparent rounded-full blur-3xl pointer-events-none group-hover:scale-125 transition-transform duration-700" />
+
+              {/* Premium Heart Glass Badge */}
+              <div className="relative z-10 w-20 h-20 rounded-3xl bg-gradient-to-br from-rose-500/20 via-pink-500/10 to-rose-600/5 border border-rose-500/30 text-rose-500 flex items-center justify-center mx-auto shadow-[0_8px_32px_rgba(244,63,94,0.25)] group-hover:rotate-6 group-hover:scale-105 transition-all duration-500">
+                <svg className="w-9 h-9 fill-current text-rose-500 drop-shadow-[0_2px_12px_rgba(244,63,94,0.6)]" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
                 </svg>
               </div>
-              <div className="space-y-1">
-                <h3 className="text-lg font-bold text-[var(--heading-color)]">
+
+              <div className="relative z-10 space-y-2">
+                <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-[var(--heading-color)]">
                   No Saved Favorites Yet
                 </h3>
-                <p className="text-xs text-[var(--foreground-muted)] max-w-xs mx-auto leading-relaxed">
-                  When you tweak wallpapers in the Generative Studio and click <strong>Save</strong>, they will be saved here for instant access.
+                <p className="text-xs sm:text-sm text-[var(--foreground-muted)] max-w-sm mx-auto leading-relaxed">
+                  When you customize wallpapers in the <strong className="text-[var(--heading-color)] font-semibold">Generative Studio</strong> and click <strong className="text-[var(--heading-color)] font-semibold">Save</strong>, they will be stored here for instant 4K export and access.
                 </p>
               </div>
-              <div className="pt-2">
+
+              <div className="relative z-10 pt-2">
                 <Link
                   href="/studio"
-                  className="inline-flex items-center gap-2 bg-slate-900 text-white dark:bg-white dark:text-black font-semibold text-xs py-2.5 px-5 rounded-xl hover:opacity-90 transition-opacity shadow-sm"
+                  className="inline-flex items-center gap-2.5 px-6 py-3 rounded-2xl text-xs sm:text-sm font-semibold bg-[var(--heading-color)] text-[var(--background)] hover:opacity-90 transition-all duration-300 shadow-md hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 group/btn"
                 >
-                  Go to Generative Studio →
+                  <span>Open Generative Studio</span>
+                  <svg className="w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                    <polyline points="12 5 19 12 12 19" />
+                  </svg>
                 </Link>
               </div>
             </div>

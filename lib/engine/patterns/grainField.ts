@@ -35,29 +35,32 @@ export function drawGrainField(
   // Grain intensity
   const grainAmount = rng.range(15, 35);
 
-  for (let y = 0; y < h; y++) {
-    for (let x = 0; x < w; x++) {
-      // Gradient position along angle
-      const nx = x / w - 0.5;
-      const ny = y / h - 0.5;
-      let t = (nx * cos + ny * sin + 0.5);
-      t = Math.max(0, Math.min(1, t));
+  // Fast linear gradient constants
+  const cosDivW = cos / w;
+  const sinDivH = sin / h;
+  const baseT = -0.5 * cos - 0.5 * sin + 0.5;
+  const seedHash = seed * 1446777085;
 
-      // Interpolate gradient
+  let idx = 0;
+  for (let y = 0; y < h; y++) {
+    const yTerm = y * sinDivH + baseT;
+    const yHash = y * 668265263 ^ seedHash;
+
+    for (let x = 0; x < w; x++) {
+      const t = Math.max(0, Math.min(1, x * cosDivW + yTerm));
       const gc = lerpRGB(c1, c2, t);
 
-      // Add high-entropy noise with robust seed integration
-      let noiseHash = (x * 374761393) ^ (y * 668265263) ^ (seed * 1446777085);
+      let noiseHash = (x * 374761393) ^ yHash;
       noiseHash = Math.imul(noiseHash ^ (noiseHash >>> 15), 2246822519);
       noiseHash = Math.imul(noiseHash ^ (noiseHash >>> 13), 3266489917);
       const normHash = ((noiseHash ^ (noiseHash >>> 16)) >>> 0) / 4294967295;
       const grain = (normHash - 0.5) * grainAmount;
 
-      const idx = (y * w + x) * 4;
       data[idx] = Math.max(0, Math.min(255, gc.r + grain));
       data[idx + 1] = Math.max(0, Math.min(255, gc.g + grain));
       data[idx + 2] = Math.max(0, Math.min(255, gc.b + grain));
       data[idx + 3] = 255;
+      idx += 4;
     }
   }
 

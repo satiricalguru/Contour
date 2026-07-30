@@ -1,6 +1,7 @@
 /**
  * Gallery page — browsable grid of curated wallpapers with filtering.
  */
+import { Suspense } from 'react';
 import { GalleryGrid } from '@/components/gallery/GalleryGrid';
 
 export const metadata = {
@@ -22,7 +23,9 @@ export default function GalleryPage() {
         </p>
       </div>
 
-      <GalleryGrid />
+      <Suspense fallback={<div className="text-center py-12 opacity-50">Loading Gallery…</div>}>
+        <GalleryGrid />
+      </Suspense>
     </div>
   );
 }
