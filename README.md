@@ -19,17 +19,19 @@
 
 ## 📷 Screenshots & Preview Gallery
 
-<!-- Replace the placeholder paths below with your screenshot images -->
-
-| Generative Studio Preview | Live Motion & Hardware Mockups |
+| 🌟 Hero Showcase |  Native Apple Hardware Mockup Stage |
 | :---: | :---: |
-| ![Generative Studio](./docs/screenshots/studio.png) | ![Device Mockup Preview](./docs/screenshots/mockup.png) |
+| ![Hero Showcase](./docs/screenshots/hero.png) | ![Apple Hardware Stage](./docs/screenshots/devices.png) |
 
-| Curated Wallpaper Gallery | Saved Favorites & Live Export |
+| 🎨 Interactive Wallpaper Studio | 🖼️ Curated Wallpaper Gallery |
 | :---: | :---: |
-| ![Curated Catalog](./docs/screenshots/gallery.png) | ![Saved Favorites](./docs/screenshots/favorites.png) |
+| ![Interactive Wallpaper Studio](./docs/screenshots/studio.png) | ![Curated Wallpaper Gallery](./docs/screenshots/gallery.png) |
 
-> 💡 *Note: You can drop your screenshot images into `./docs/screenshots/` to display them above.*
+<div align="center">
+  <br />
+  <img src="./docs/screenshots/features.png" width="95%" alt="Features & Technical Specs" />
+  <p><sub><i>Built for Apple Displays — Generative Studio, Curated Gallery, and System Architecture</i></sub></p>
+</div>
 
 ---
 
