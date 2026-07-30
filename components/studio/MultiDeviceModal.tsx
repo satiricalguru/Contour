@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useSyncExternalStore } from 'react';
+import { createPortal } from 'react-dom';
 import { ALL_DEVICES, DeviceModel, DeviceCategory } from '@/lib/devices';
 import { exportDeviceBatch } from '@/lib/batchExporter';
 
@@ -36,6 +37,14 @@ const MAC_IPAD_SUITE = [
   'ipad-mini',
 ];
 
+function useIsMounted() {
+  return useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false,
+  );
+}
+
 export function MultiDeviceModal({
   isOpen,
   onClose,
@@ -44,6 +53,7 @@ export function MultiDeviceModal({
   seed,
   inverted,
 }: MultiDeviceModalProps) {
+  const isMounted = useIsMounted();
   const [selectedIds, setSelectedIds] = useState<string[]>(DEFAULT_FLAGSHIPS);
   const [exportingStatus, setExportingStatus] = useState<{
     isExporting: boolean;
@@ -57,11 +67,43 @@ export function MultiDeviceModal({
     currentDevice: '',
   });
 
-  const categories: { id: DeviceCategory; label: string }[] = [
-    { id: 'mac', label: 'Mac' },
-    { id: 'iphone', label: 'iPhone' },
-    { id: 'ipad', label: 'iPad' },
-    { id: 'watch', label: 'Watch' },
+  const categories: { id: DeviceCategory; label: string; icon: React.ReactNode }[] = [
+    {
+      id: 'mac',
+      label: 'Mac',
+      icon: (
+        <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 20 20">
+          <path fillRule="evenodd" d="M3 5a2 2 0 012-2h10a2 2 0 012 2v8a2 2 0 01-2 2h2.25a.75.75 0 010 1.5H2.75a.75.75 0 010-1.5H5V5zm2 1.5v6.5h10V6.5H5z" clipRule="evenodd" />
+        </svg>
+      ),
+    },
+    {
+      id: 'iphone',
+      label: 'iPhone',
+      icon: (
+        <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 20 20">
+          <path fillRule="evenodd" d="M7 2a2 2 0 00-2 2v12a2 2 0 002 2h6a2 2 0 002-2V4a2 2 0 00-2-2H7zm0 2h6v12H7V4z" clipRule="evenodd" />
+        </svg>
+      ),
+    },
+    {
+      id: 'ipad',
+      label: 'iPad',
+      icon: (
+        <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 20 20">
+          <path fillRule="evenodd" d="M5 2a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V4a2 2 0 00-2-2H5zm0 2h10v12H5V4z" clipRule="evenodd" />
+        </svg>
+      ),
+    },
+    {
+      id: 'watch',
+      label: 'Watch',
+      icon: (
+        <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 20 20">
+          <path fillRule="evenodd" d="M10 2a1 1 0 011 1v1.1a5.002 5.002 0 013.9 3.9H16a1 1 0 110 2h-1.1a5.002 5.002 0 01-3.9 3.9V15a1 1 0 11-2 0v-1.1a5.002 5.002 0 01-3.9-3.9H4a1 1 0 110-2h1.1A5.002 5.002 0 019 4.1V3a1 1 0 011-1zm0 4a4 4 0 100 8 4 4 0 000-8z" clipRule="evenodd" />
+        </svg>
+      ),
+    },
   ];
 
   const devicesByCategory = useMemo(() => {
@@ -77,7 +119,7 @@ export function MultiDeviceModal({
     return map;
   }, []);
 
-  if (!isOpen) return null;
+  if (!isOpen || !isMounted) return null;
 
   const toggleDevice = (id: string) => {
     setSelectedIds((prev) =>
@@ -136,8 +178,8 @@ export function MultiDeviceModal({
     }
   };
 
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-md animate-fadeIn">
+  const modalContent = (
+    <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-6 bg-black/75 backdrop-blur-xl animate-fadeIn">
       <div
         className="relative w-full max-w-2xl bg-[var(--card-bg)] border border-[var(--card-border)] rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[85vh]"
         role="dialog"
@@ -145,7 +187,7 @@ export function MultiDeviceModal({
         aria-labelledby="multi-device-modal-title"
       >
         {/* Header */}
-        <div className="p-6 border-b border-[var(--card-border)] flex items-center justify-between">
+        <div className="p-5 sm:p-6 border-b border-[var(--card-border)] flex items-center justify-between">
           <div>
             <h2 id="multi-device-modal-title" className="text-lg font-bold text-[var(--heading-color)]">
               Export Apple Ecosystem Pack
@@ -167,37 +209,52 @@ export function MultiDeviceModal({
           </button>
         </div>
 
-        {/* Preset Suite Quick Buttons */}
-        <div className="p-4 bg-[var(--pill-bg)] border-b border-[var(--card-border)] flex flex-wrap gap-2 items-center justify-between text-xs">
+        {/* Preset Suite Quick Buttons with Vector Icons */}
+        <div className="p-3.5 sm:p-4 bg-[var(--pill-bg)] border-b border-[var(--card-border)] flex flex-wrap gap-2 items-center justify-between text-xs">
           <span className="font-semibold text-[var(--foreground-muted)] text-[10px] uppercase tracking-wider">Presets:</span>
-          <div className="flex flex-wrap gap-1.5">
+          <div className="flex flex-wrap gap-1.5 items-center">
+            {/* Flagship Suite Button */}
             <button
               onClick={() => selectPreset(DEFAULT_FLAGSHIPS)}
-              className="px-3 py-1 rounded-lg bg-[var(--card-bg)] border border-[var(--card-border)] hover:border-[var(--heading-color)] text-[var(--heading-color)] font-medium transition-colors cursor-pointer"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[var(--card-bg)] border border-[var(--card-border)] hover:border-[var(--heading-color)] text-[var(--heading-color)] font-medium transition-colors cursor-pointer text-xs"
             >
-               Flagship Suite (4)
+              <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 170 170">
+                <path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.33 0-9.2-2.1-14.6-6.3-3.16-2.5-7.04-7.05-11.64-13.67-5.26-7.55-9.61-16.03-13.06-25.43-3.45-9.4-5.17-18.49-5.17-27.27 0-11.64 2.87-21.36 8.6-29.17 5.73-7.81 13.16-11.78 22.28-11.91 4.54 0 9.53 1.15 14.97 3.46 5.44 2.31 9.3 3.48 11.58 3.48 2.05 0 6.01-1.22 11.89-3.66 5.88-2.44 10.86-3.59 14.94-3.46 10.05.42 18.06 3.99 24.03 10.72-8.91 5.38-13.25 12.65-13.02 21.82.23 8.35 3.46 15.34 9.69 20.97 6.23 5.63 13.68 8.78 22.35 9.45-2.02 6.13-4.7 12.33-8.04 18.59zm-26.6-113.8c0 4.88-1.57 9.8-4.71 14.76-3.14 4.96-7.3 8.78-12.48 11.46-.22-.67-.33-1.42-.33-2.25 0-4.96 1.63-9.98 4.89-15.06 3.26-5.08 7.42-8.87 12.48-11.37.15.74.22 1.56.22 2.46z" />
+              </svg>
+              <span>Flagship Suite (4)</span>
             </button>
+
+            {/* iPhone + Watch Suite Button */}
             <button
               onClick={() => selectPreset(IPHONE_WATCH_SUITE)}
-              className="px-3 py-1 rounded-lg bg-[var(--card-bg)] border border-[var(--card-border)] hover:border-[var(--heading-color)] text-[var(--heading-color)] font-medium transition-colors cursor-pointer"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[var(--card-bg)] border border-[var(--card-border)] hover:border-[var(--heading-color)] text-[var(--heading-color)] font-medium transition-colors cursor-pointer text-xs"
             >
-              📱 iPhone + Watch
+              <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M7 2a2 2 0 00-2 2v12a2 2 0 002 2h6a2 2 0 002-2V4a2 2 0 00-2-2H7zm0 2h6v12H7V4z" clipRule="evenodd" />
+              </svg>
+              <span>iPhone + Watch</span>
             </button>
+
+            {/* Mac + iPad Workstation Suite Button */}
             <button
               onClick={() => selectPreset(MAC_IPAD_SUITE)}
-              className="px-3 py-1 rounded-lg bg-[var(--card-bg)] border border-[var(--card-border)] hover:border-[var(--heading-color)] text-[var(--heading-color)] font-medium transition-colors cursor-pointer"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[var(--card-bg)] border border-[var(--card-border)] hover:border-[var(--heading-color)] text-[var(--heading-color)] font-medium transition-colors cursor-pointer text-xs"
             >
-              💻 Mac + iPad Workstation
+              <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M3 5a2 2 0 012-2h10a2 2 0 012 2v8a2 2 0 01-2 2h2.25a.75.75 0 010 1.5H2.75a.75.75 0 010-1.5H5V5zm2 1.5v6.5h10V6.5H5z" clipRule="evenodd" />
+              </svg>
+              <span>Mac + iPad Workstation</span>
             </button>
+
             <button
               onClick={selectAll}
-              className="px-2.5 py-1 rounded-lg bg-[var(--card-bg)] border border-[var(--card-border)] text-[var(--foreground-muted)] hover:text-[var(--heading-color)] transition-colors cursor-pointer"
+              className="px-2.5 py-1.5 rounded-xl bg-[var(--card-bg)] border border-[var(--card-border)] text-[var(--foreground-muted)] hover:text-[var(--heading-color)] transition-colors cursor-pointer text-xs"
             >
               Select All
             </button>
             <button
               onClick={deselectAll}
-              className="px-2.5 py-1 rounded-lg bg-[var(--card-bg)] border border-[var(--card-border)] text-[var(--foreground-muted)] hover:text-[var(--heading-color)] transition-colors cursor-pointer"
+              className="px-2.5 py-1.5 rounded-xl bg-[var(--card-bg)] border border-[var(--card-border)] text-[var(--foreground-muted)] hover:text-[var(--heading-color)] transition-colors cursor-pointer text-xs"
             >
               Clear
             </button>
@@ -205,15 +262,18 @@ export function MultiDeviceModal({
         </div>
 
         {/* Device List Body */}
-        <div className="p-6 overflow-y-auto space-y-6 flex-1">
+        <div className="p-5 sm:p-6 overflow-y-auto space-y-6 flex-1">
           {categories.map((cat) => {
             const list = devicesByCategory[cat.id];
             if (list.length === 0) return null;
 
             return (
               <div key={cat.id} className="space-y-3">
-                <h3 className="text-xs font-bold uppercase tracking-wider text-[var(--heading-color)] flex items-center justify-between">
-                  <span>{cat.label} ({list.length})</span>
+                <h3 className="text-xs font-bold uppercase tracking-wider text-[var(--heading-color)] flex items-center justify-between border-b border-[var(--card-border)] pb-2">
+                  <span className="flex items-center gap-1.5">
+                    {cat.icon}
+                    <span>{cat.label} ({list.length})</span>
+                  </span>
                   <span className="text-[10px] text-[var(--foreground-muted)] font-normal">
                     {list.filter((d) => selectedIds.includes(d.id)).length} selected
                   </span>
@@ -258,7 +318,7 @@ export function MultiDeviceModal({
 
         {/* Footer */}
         <div className="p-4 sm:p-6 border-t border-[var(--card-border)] bg-[var(--card-bg)] flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="text-xs text-[var(--foreground-muted)]">
+          <div className="text-xs text-[var(--foreground-muted)] text-center sm:text-left">
             <span className="font-bold text-[var(--heading-color)]">{selectedIds.length}</span> device{selectedIds.length === 1 ? '' : 's'} ready for native resolution export
           </div>
 
@@ -300,4 +360,6 @@ export function MultiDeviceModal({
       </div>
     </div>
   );
+
+  return createPortal(modalContent, document.body);
 }
