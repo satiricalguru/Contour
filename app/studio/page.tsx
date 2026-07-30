@@ -14,6 +14,7 @@ import { PatternPicker } from '@/components/studio/PatternPicker';
 import { PalettePicker } from '@/components/studio/PalettePicker';
 import { PolarityToggle } from '@/components/studio/PolarityToggle';
 import { DeviceModelPicker } from '@/components/studio/DeviceModelPicker';
+import { LiveMotionControl } from '@/components/studio/LiveMotionControl';
 import { ExportPanel } from '@/components/studio/ExportPanel';
 import { PALETTES } from '@/data/palettes';
 import { interpolateRamp } from '@/lib/engine/color';
@@ -26,6 +27,8 @@ function StudioContent() {
     seed,
     inverted,
     modelId,
+    isLiveMode,
+    liveSpeed,
     shuffle,
     togglePolarity,
     hydrateFromParams,
@@ -109,6 +112,8 @@ function StudioContent() {
                 inverted={inverted}
                 width={previewW}
                 height={previewH}
+                isLive={isLiveMode}
+                speed={liveSpeed}
               />
             </DeviceFrame>
           ) : (
@@ -163,6 +168,8 @@ function StudioContent() {
           <PalettePicker />
           <div className="h-px bg-[var(--card-border)]" />
           <PolarityToggle />
+          <div className="h-px bg-[var(--card-border)]" />
+          <LiveMotionControl />
           <div className="h-px bg-[var(--card-border)]" />
           <ExportPanel />
 

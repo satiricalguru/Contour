@@ -13,6 +13,7 @@ export function drawAuroraBands(
   ramp: readonly string[],
   seed: number,
   inverted: boolean,
+  tSec: number = 0,
 ) {
   const rng = new Rng(seed);
   const colors = inverted ? [...ramp].reverse() : [...ramp];
@@ -28,7 +29,7 @@ export function drawAuroraBands(
     const baseX = b * bandWidth;
     const t = (b + 0.5) / bandCount;
     const bandColor = sampleRamp(colors, t * 0.7 + 0.2);
-    const offset = rng.range(0, 100);
+    const offset = rng.range(0, 100) + tSec * 0.15;
     const warpScale = rng.range(0.8, 2.0);
 
     // Draw the band as a series of thin vertical strips (resolution-independent count for consistent alpha blending)

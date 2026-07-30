@@ -25,6 +25,10 @@ export interface ContourState {
   seed: number;
   inverted: boolean;
 
+  // Live Motion state
+  isLiveMode: boolean;
+  liveSpeed: number;
+
   // Device selection
   deviceCategory: DeviceCategory;
   modelId: string;
@@ -38,6 +42,8 @@ export interface ContourState {
   setSeed: (seed: number) => void;
   setInverted: (inverted: boolean) => void;
   togglePolarity: () => void;
+  toggleLiveMode: () => void;
+  setLiveSpeed: (speed: number) => void;
   shuffle: () => void;
   setDeviceCategory: (cat: DeviceCategory) => void;
   setModelId: (id: string) => void;
@@ -70,19 +76,27 @@ function saveFavorites(favs: FavoriteItem[]) {
 }
 
 export const useContourStore = create<ContourState>((set, get) => ({
-  patternId: PATTERNS[0].id,
-  paletteId: PALETTES[0].id,
-  seed: 42, // Fixed deterministic initial seed for SSR hydration match
+  patternId: 'flowing-hills',
+  paletteId: 'charcoal',
+  seed: 42,
   inverted: false,
-  deviceCategory: 'iphone',
-  modelId: 'iphone-17-pro',
+
+  isLiveMode: false,
+  liveSpeed: 1.0,
+
+  deviceCategory: 'mac',
+  modelId: 'macbook-pro-16',
+
   favorites: loadFavorites(),
 
-  setPattern: (id) => set({ patternId: id }),
-  setPalette: (id) => set({ paletteId: id }),
+  setPattern: (patternId) => set({ patternId }),
+  setPalette: (paletteId) => set({ paletteId }),
   setSeed: (seed) => set({ seed }),
   setInverted: (inverted) => set({ inverted }),
   togglePolarity: () => set((s) => ({ inverted: !s.inverted })),
+
+  toggleLiveMode: () => set((s) => ({ isLiveMode: !s.isLiveMode })),
+  setLiveSpeed: (liveSpeed) => set({ liveSpeed }),
 
   shuffle: () => set({ seed: generateSeed() }),
 

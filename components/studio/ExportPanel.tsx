@@ -1,5 +1,5 @@
 /**
- * ExportPanel — shows target resolution, triggers OffscreenCanvas export.
+ * ExportPanel — shows target resolution, triggers static PNG and 4K Live Video exports.
  */
 'use client';
 
@@ -22,6 +22,7 @@ export function ExportPanel() {
   } = useContourStore();
 
   const [exporting, setExporting] = useState(false);
+  const [recordingVideo, setRecordingVideo] = useState(false);
   const [copied, setCopied] = useState(false);
   const [justSaved, setJustSaved] = useState(false);
 
@@ -90,6 +91,69 @@ export function ExportPanel() {
     }
   }, [device, patternId, paletteId, seed, inverted, exporting]);
 
+  const handleExportLiveVideo = useCallback(async () => {
+    if (!device || exporting || recordingVideo) return;
+    setRecordingVideo(true);
+
+    try {
+      const { width, height } = device.resolution;
+      const fileName = `contour-live-${patternId}-${paletteId}-${device.id}.webm`;
+
+      const canvas = document.createElement('canvas');
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) throw new Error('Could not get 2D canvas context');
+
+      const stream = canvas.captureStream(60);
+      const mimeType = typeof MediaRecorder !== 'undefined' && MediaRecorder.isTypeSupported('video/mp4;codecs=h264')
+        ? 'video/mp4;codecs=h264'
+        : typeof MediaRecorder !== 'undefined' && MediaRecorder.isTypeSupported('video/webm;codecs=vp9')
+        ? 'video/webm;codecs=vp9'
+        : 'video/webm';
+
+      const mediaRecorder = new MediaRecorder(stream, { mimeType });
+      const chunks: Blob[] = [];
+
+      mediaRecorder.ondataavailable = (e) => {
+        if (e.data.size > 0) chunks.push(e.data);
+      };
+
+      mediaRecorder.onstop = () => {
+        const blob = new Blob(chunks, { type: mimeType });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = fileName;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        setRecordingVideo(false);
+      };
+
+      const durationMs = 5000;
+      const startTime = performance.now();
+      mediaRecorder.start();
+
+      const recordFrame = (now: number) => {
+        const elapsedSec = (now - startTime) / 1000;
+        drawPattern(ctx, width, height, patternId, paletteId, seed, inverted, elapsedSec);
+
+        if (now - startTime < durationMs) {
+          requestAnimationFrame(recordFrame);
+        } else {
+          mediaRecorder.stop();
+        }
+      };
+
+      requestAnimationFrame(recordFrame);
+    } catch (err) {
+      console.error('Live video export failed:', err);
+      setRecordingVideo(false);
+    }
+  }, [device, patternId, paletteId, seed, inverted, exporting, recordingVideo]);
+
   const handleToggleFavorite = useCallback(() => {
     if (isFavorite) {
       removeFavorite({ patternId, paletteId, seed, inverted });
@@ -123,10 +187,10 @@ export function ExportPanel() {
       </h3>
 
       <div className="flex flex-col gap-2">
-        {/* Export */}
+        {/* Export Static PNG */}
         <button
           onClick={handleExport}
-          disabled={exporting}
+          disabled={exporting || recordingVideo}
           className="flex items-center justify-center gap-2 bg-[var(--heading-color)] text-[var(--background)] rounded-xl py-2.5 px-4 text-sm font-semibold hover:opacity-90 transition-all duration-200 shadow-sm disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
           aria-label="Export wallpaper as PNG"
         >
@@ -136,7 +200,7 @@ export function ExportPanel() {
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
               </svg>
-              Exporting…
+              Exporting static PNG…
             </>
           ) : (
             <>
@@ -144,7 +208,32 @@ export function ExportPanel() {
                 <path d="M10.75 2.75a.75.75 0 00-1.5 0v8.614L6.295 8.235a.75.75 0 10-1.09 1.03l4.25 4.5a.75.75 0 001.09 0l4.25-4.5a.75.75 0 00-1.09-1.03l-2.955 3.129V2.75z" />
                 <path d="M3.5 12.75a.75.75 0 00-1.5 0v2.5A2.75 2.75 0 004.75 18h10.5A2.75 2.75 0 0018 15.25v-2.5a.75.75 0 00-1.5 0v2.5c0 .69-.56 1.25-1.25 1.25H4.75c-.69 0-1.25-.56-1.25-1.25v-2.5z" />
               </svg>
-              Export PNG
+              Export Static PNG
+            </>
+          )}
+        </button>
+
+        {/* Export 4K Live Motion Video */}
+        <button
+          onClick={handleExportLiveVideo}
+          disabled={exporting || recordingVideo}
+          className="flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white rounded-xl py-2.5 px-4 text-sm font-semibold transition-all duration-200 shadow-md disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+          aria-label="Export live motion wallpaper video"
+        >
+          {recordingVideo ? (
+            <>
+              <svg className="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+              </svg>
+              Recording 5s Live Motion Video…
+            </>
+          ) : (
+            <>
+              <svg className="w-4 h-4 fill-current text-white" viewBox="0 0 20 20">
+                <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 00-18 13V7a1 1 0 00-1.447-.894l-2 1z" />
+              </svg>
+              Export Live Motion Video (4K)
             </>
           )}
         </button>

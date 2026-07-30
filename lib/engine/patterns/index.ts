@@ -35,6 +35,7 @@ export type PatternDrawFn = (
   ramp: readonly string[],
   seed: number,
   inverted: boolean,
+  t?: number,
 ) => void;
 
 export interface PatternDef {
@@ -146,6 +147,7 @@ export function drawPattern(
   paletteId: string,
   seed: number,
   inverted: boolean,
+  t: number = 0,
 ) {
   const pattern = PATTERNS.find((p) => p.id === patternId);
   const palette = PALETTES.find((p) => p.id === paletteId);
@@ -158,7 +160,7 @@ export function drawPattern(
   }
 
   const ramp = interpolateRamp(palette.anchors, RAMP_STOPS);
-  pattern.draw(ctx, w, h, ramp, seed, inverted);
+  pattern.draw(ctx, w, h, ramp, seed, inverted, t);
 }
 
 /** Get a pattern definition by ID. */

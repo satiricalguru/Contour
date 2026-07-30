@@ -14,6 +14,8 @@ interface WallpaperCanvasProps {
   inverted: boolean;
   width: number;
   height: number;
+  isLive?: boolean;
+  speed?: number;
   className?: string;
   style?: React.CSSProperties;
 }
@@ -25,6 +27,8 @@ export function WallpaperCanvas({
   inverted,
   width,
   height,
+  isLive = false,
+  speed = 1.0,
   className,
   style,
 }: WallpaperCanvasProps) {
@@ -41,8 +45,28 @@ export function WallpaperCanvas({
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    drawPattern(ctx, width, height, patternId, paletteId, seed, inverted);
-  }, [patternId, paletteId, seed, inverted, width, height]);
+    if (!isLive) {
+      drawPattern(ctx, width, height, patternId, paletteId, seed, inverted, 0);
+      return;
+    }
+
+    let animId: number;
+    let startTime: number | null = null;
+
+    const renderFrame = (timestamp: number) => {
+      if (startTime === null) startTime = timestamp;
+      const elapsedSec = ((timestamp - startTime) / 1000) * speed;
+
+      drawPattern(ctx, width, height, patternId, paletteId, seed, inverted, elapsedSec);
+      animId = requestAnimationFrame(renderFrame);
+    };
+
+    animId = requestAnimationFrame(renderFrame);
+
+    return () => {
+      if (animId) cancelAnimationFrame(animId);
+    };
+  }, [patternId, paletteId, seed, inverted, width, height, isLive, speed]);
 
   return (
     <canvas

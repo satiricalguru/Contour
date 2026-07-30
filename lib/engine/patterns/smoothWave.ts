@@ -12,6 +12,7 @@ export function drawSmoothWave(
   ramp: readonly string[],
   seed: number,
   inverted: boolean,
+  tSec: number = 0,
 ) {
   const rng = new Rng(seed);
   const colors = inverted ? [...ramp].reverse() : [...ramp];
@@ -21,8 +22,8 @@ export function drawSmoothWave(
   ctx.fillStyle = colors[0];
   ctx.fillRect(0, 0, w, h);
 
-  // Off-center peak position
-  const peakX = w * rng.range(0.25, 0.75);
+  // Off-center peak position with subtle motion
+  const peakX = w * (rng.range(0.25, 0.75) + Math.sin(tSec * 0.8) * 0.04);
   const peakY = h * rng.range(0.2, 0.4);
 
   for (let layer = 0; layer < layers; layer++) {

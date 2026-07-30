@@ -13,12 +13,13 @@ export function drawMarbleInk(
   ramp: readonly string[],
   seed: number,
   inverted: boolean,
+  tSec: number = 0,
 ) {
   const rng = new Rng(seed);
   const colors = inverted ? [...ramp].reverse() : [...ramp];
 
-  const offsetX = rng.range(0, 100);
-  const offsetY = rng.range(0, 100);
+  const offsetX = rng.range(0, 100) + tSec * 0.06;
+  const offsetY = rng.range(0, 100) + tSec * 0.04;
   const scale = rng.range(2.5, 5);
   const warpStrength = rng.range(1.5, 3.5);
 
