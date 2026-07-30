@@ -79,7 +79,7 @@ export const useContourStore = create<ContourState>((set, get) => ({
   patternId: 'flowing-hills',
   paletteId: 'charcoal',
   seed: 42,
-  inverted: false,
+  inverted: true,
 
   isLiveMode: false,
   liveSpeed: 1.0,
