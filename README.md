@@ -19,17 +19,25 @@
 
 ## 📷 Screenshots & Preview Gallery
 
-| 🌟 Hero Showcase |  Native Apple Hardware Mockup Stage |
+| 🌟 Hero Showcase |  Native Apple Hardware Stage |
 | :---: | :---: |
 | ![Hero Showcase](./docs/screenshots/hero.png) | ![Apple Hardware Stage](./docs/screenshots/devices.png) |
 
-| 🎨 Interactive Wallpaper Studio | 🖼️ Curated Wallpaper Gallery |
+| 💻 MacBook Studio | 📱 iPhone 17 Pro Studio |
 | :---: | :---: |
-| ![Interactive Wallpaper Studio](./docs/screenshots/studio.png) | ![Curated Wallpaper Gallery](./docs/screenshots/gallery.png) |
+| ![MacBook Studio](./docs/screenshots/studio.png) | ![iPhone Studio](./docs/screenshots/studio-iphone.png) |
+
+| 📱 iPad Pro Studio & Live Motion | ⌚ Apple Watch Ultra 2 Studio |
+| :---: | :---: |
+| ![iPad Studio](./docs/screenshots/studio-ipad.png) | ![Apple Watch Studio](./docs/screenshots/studio-watch.png) |
+
+| 🖼️ Curated Wallpaper Gallery | 📚 System Documentation |
+| :---: | :---: |
+| ![Wallpaper Gallery](./docs/screenshots/gallery.png) | ![System Documentation](./docs/screenshots/documentation.png) |
 
 <div align="center">
   <br />
-  <img src="./docs/screenshots/features.png" width="95%" alt="Features & Technical Specs" />
+  <img src="./docs/screenshots/features.png" width="95%" alt="Features & Technical Architecture" />
   <p><sub><i>Built for Apple Displays — Generative Studio, Curated Gallery, and System Architecture</i></sub></p>
 </div>
 
