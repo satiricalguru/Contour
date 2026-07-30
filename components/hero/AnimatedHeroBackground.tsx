@@ -1,14 +1,30 @@
+'use client';
+
 /**
  * AnimatedHeroBackground — Official Apple iOS hero video background.
  * Plays the continuous extracted Apple OS video animation (/apple-hero.mp4) seamlessly
  * in the background behind the homepage top hero section without disturbing text or controls.
  */
-'use client';
+import { useEffect, useRef } from 'react';
+
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
 
 export function AnimatedHeroBackground() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const videoSrc = `${basePath}/apple-hero.mp4`;
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.play().catch(() => {
+        // Autoplay policy fallback
+      });
+    }
+  }, []);
+
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none z-0 bg-black">
       <video
+        ref={videoRef}
         autoPlay
         loop
         muted
@@ -16,7 +32,7 @@ export function AnimatedHeroBackground() {
         preload="auto"
         className="w-full h-full object-cover opacity-80 scale-[1.15] -translate-y-16"
       >
-        <source src="/apple-hero.mp4" type="video/mp4" />
+        <source src={videoSrc} type="video/mp4" />
       </video>
 
       {/* Top gradient for blending and text legibility */}
