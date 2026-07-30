@@ -1,5 +1,5 @@
 /**
- * ExportPanel — shows target resolution, triggers static PNG and 4K Live Video exports.
+ * ExportPanel — shows target resolution, triggers static PNG, 4K Live Video, and Apple Ecosystem Pack exports.
  */
 'use client';
 
@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { useContourStore, FavoriteItem } from '@/lib/store';
 import { getDeviceById } from '@/lib/devices';
 import { drawPattern } from '@/lib/engine/patterns';
+import { MultiDeviceModal } from './MultiDeviceModal';
 
 export function ExportPanel() {
   const {
@@ -23,6 +24,7 @@ export function ExportPanel() {
 
   const [exporting, setExporting] = useState(false);
   const [recordingVideo, setRecordingVideo] = useState(false);
+  const [isMultiDeviceOpen, setIsMultiDeviceOpen] = useState(false);
   const [copied, setCopied] = useState(false);
   const [justSaved, setJustSaved] = useState(false);
 
@@ -187,11 +189,25 @@ export function ExportPanel() {
       </h3>
 
       <div className="flex flex-col gap-2">
+        {/* Export Apple Ecosystem Pack (Multi-Device) */}
+        <button
+          onClick={() => setIsMultiDeviceOpen(true)}
+          disabled={exporting || recordingVideo}
+          className="flex items-center justify-center gap-2 bg-[var(--heading-color)] text-[var(--background)] rounded-xl py-2.5 px-4 text-sm font-semibold hover:opacity-90 transition-all duration-200 shadow-md disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+          aria-label="Export wallpaper for multiple Apple devices"
+        >
+          <svg className="w-4 h-4 fill-current" viewBox="0 0 20 20">
+            <path d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7z" />
+            <path fillRule="evenodd" d="M4 7a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2H6a2 2 0 01-2-2V7zm2 0h8v8H6V7z" clipRule="evenodd" />
+          </svg>
+          Export Apple Ecosystem Pack
+        </button>
+
         {/* Export Static PNG */}
         <button
           onClick={handleExport}
           disabled={exporting || recordingVideo}
-          className="flex items-center justify-center gap-2 bg-[var(--heading-color)] text-[var(--background)] rounded-xl py-2.5 px-4 text-sm font-semibold hover:opacity-90 transition-all duration-200 shadow-sm disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+          className="flex items-center justify-center gap-2 bg-[var(--pill-bg)] border border-[var(--card-border)] text-[var(--heading-color)] hover:border-slate-400/40 dark:hover:border-white/20 rounded-xl py-2.5 px-4 text-sm font-semibold transition-all duration-200 shadow-sm disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
           aria-label="Export wallpaper as PNG"
         >
           {exporting ? (
@@ -208,7 +224,7 @@ export function ExportPanel() {
                 <path d="M10.75 2.75a.75.75 0 00-1.5 0v8.614L6.295 8.235a.75.75 0 10-1.09 1.03l4.25 4.5a.75.75 0 001.09 0l4.25-4.5a.75.75 0 00-1.09-1.03l-2.955 3.129V2.75z" />
                 <path d="M3.5 12.75a.75.75 0 00-1.5 0v2.5A2.75 2.75 0 004.75 18h10.5A2.75 2.75 0 0018 15.25v-2.5a.75.75 0 00-1.5 0v2.5c0 .69-.56 1.25-1.25 1.25H4.75c-.69 0-1.25-.56-1.25-1.25v-2.5z" />
               </svg>
-              Export Static PNG
+              Export Current Device PNG
             </>
           )}
         </button>
@@ -231,7 +247,7 @@ export function ExportPanel() {
           ) : (
             <>
               <svg className="w-4 h-4 fill-current" viewBox="0 0 20 20">
-                <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z" />
+                <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 00-18 13V7a1 1 0 00-1.447-.894l-2 1z" />
               </svg>
               Export Live Motion Video (4K)
             </>
@@ -310,6 +326,16 @@ export function ExportPanel() {
           </Link>
         )}
       </div>
+
+      {/* Multi-Device Selection Modal */}
+      <MultiDeviceModal
+        isOpen={isMultiDeviceOpen}
+        onClose={() => setIsMultiDeviceOpen(false)}
+        patternId={patternId}
+        paletteId={paletteId}
+        seed={seed}
+        inverted={inverted}
+      />
     </div>
   );
 }
