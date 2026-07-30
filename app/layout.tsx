@@ -18,10 +18,7 @@ export const metadata: Metadata = {
   description:
     "Procedurally generate minimalist, landscape-inspired wallpapers and preview them live inside pixel-accurate Apple device mockups.",
   icons: {
-    icon: [
-      { url: "/icon.svg", type: "image/svg+xml" },
-      { url: "/favicon.svg", type: "image/svg+xml" },
-    ],
+    icon: "/icon.svg",
     apple: "/apple-icon.svg",
   },
 };
