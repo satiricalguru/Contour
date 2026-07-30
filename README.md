@@ -23,11 +23,11 @@
 | :---: | :---: |
 | ![Hero Showcase](./docs/screenshots/hero.png) | ![Apple Hardware Stage](./docs/screenshots/devices.png) |
 
-| 💻 MacBook Studio | 📱 iPhone 17 Pro Studio |
+| 💻 MacBook Studio | 📱 iPhone Studio |
 | :---: | :---: |
 | ![MacBook Studio](./docs/screenshots/studio.png) | ![iPhone Studio](./docs/screenshots/studio-iphone.png) |
 
-| 📱 iPad Pro Studio & Live Motion | ⌚ Apple Watch Ultra 2 Studio |
+| 📱 iPad Studio & Live Motion | ⌚ Apple Watch Studio |
 | :---: | :---: |
 | ![iPad Studio](./docs/screenshots/studio-ipad.png) | ![Apple Watch Studio](./docs/screenshots/studio-watch.png) |
 
