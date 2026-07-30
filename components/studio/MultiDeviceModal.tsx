@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo, useSyncExternalStore } from 'react';
+import { useState, useMemo, useEffect, useSyncExternalStore } from 'react';
 import { createPortal } from 'react-dom';
 import { ALL_DEVICES, DeviceModel, DeviceCategory } from '@/lib/devices';
 import { exportDeviceBatch } from '@/lib/batchExporter';
@@ -118,6 +118,17 @@ export function MultiDeviceModal({
     }
     return map;
   }, []);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, onClose]);
 
   if (!isOpen || !isMounted) return null;
 

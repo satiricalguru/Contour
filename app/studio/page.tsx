@@ -31,6 +31,7 @@ function StudioContent() {
     liveSpeed,
     shuffle,
     togglePolarity,
+    toggleLiveMode,
     hydrateFromParams,
   } = useContourStore();
 
@@ -65,22 +66,25 @@ function StudioContent() {
 
   const device = useMemo(() => getDeviceById(modelId), [modelId]);
 
-  // Keyboard shortcuts (Space = Shuffle, D/L = Toggle Dark/Light polarity)
+  // Keyboard shortcuts (Space = Shuffle, D/L = Toggle Dark/Light polarity, M = Toggle Motion)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLSelectElement) return;
+      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLSelectElement || e.target instanceof HTMLTextAreaElement) return;
       if (e.code === 'Space') {
         e.preventDefault();
         shuffle();
       } else if (e.code === 'KeyD' || e.code === 'KeyL') {
         e.preventDefault();
         togglePolarity();
+      } else if (e.code === 'KeyM' || e.code === 'KeyP') {
+        e.preventDefault();
+        toggleLiveMode();
       }
     };
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [shuffle, togglePolarity]);
+  }, [shuffle, togglePolarity, toggleLiveMode]);
 
   // Canvas size — render at a reasonable preview resolution
   const previewW = device ? Math.min(device.resolution.width, 800) : 800;
