@@ -217,7 +217,7 @@ export function ExportPanel() {
         <button
           onClick={handleExportLiveVideo}
           disabled={exporting || recordingVideo}
-          className="flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white rounded-xl py-2.5 px-4 text-sm font-semibold transition-all duration-200 shadow-md disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+          className="flex items-center justify-center gap-2 bg-[var(--pill-bg)] border border-[var(--card-border)] text-[var(--heading-color)] hover:bg-[var(--heading-color)] hover:text-[var(--background)] rounded-xl py-2.5 px-4 text-sm font-semibold transition-all duration-200 shadow-sm disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
           aria-label="Export live motion wallpaper video"
         >
           {recordingVideo ? (
@@ -230,8 +230,8 @@ export function ExportPanel() {
             </>
           ) : (
             <>
-              <svg className="w-4 h-4 fill-current text-white" viewBox="0 0 20 20">
-                <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 00-18 13V7a1 1 0 00-1.447-.894l-2 1z" />
+              <svg className="w-4 h-4 fill-current" viewBox="0 0 20 20">
+                <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z" />
               </svg>
               Export Live Motion Video (4K)
             </>

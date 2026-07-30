@@ -11,7 +11,7 @@ export function LiveMotionControl() {
     <div className="space-y-3 p-4 bg-[var(--card-bg)] border border-[var(--card-border)] rounded-2xl">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <div className={`w-2.5 h-2.5 rounded-full ${isLiveMode ? 'bg-emerald-500 animate-pulse' : 'bg-slate-500'}`} />
+          <div className={`w-2 h-2 rounded-full ${isLiveMode ? 'bg-[var(--heading-color)] animate-pulse' : 'bg-[var(--foreground-muted)] opacity-40'}`} />
           <h3 className="text-xs font-semibold uppercase tracking-wider text-[var(--heading-color)]">
             Live Wallpaper Motion
           </h3>
@@ -20,10 +20,10 @@ export function LiveMotionControl() {
         {/* Toggle Play/Pause Button */}
         <button
           onClick={toggleLiveMode}
-          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all duration-200 cursor-pointer shadow-xs ${
+          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 cursor-pointer shadow-xs ${
             isLiveMode
-              ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-500/30'
-              : 'bg-[var(--heading-color)] text-[var(--background)] hover:opacity-90'
+              ? 'bg-[var(--heading-color)] text-[var(--background)] font-semibold'
+              : 'bg-[var(--pill-bg)] border border-[var(--card-border)] text-[var(--foreground-muted)] hover:text-[var(--heading-color)]'
           }`}
           title={isLiveMode ? 'Pause live wallpaper preview' : 'Play 60 FPS live wallpaper preview'}
         >
