@@ -5,6 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "export": "NEXT_PUBLIC_BASE_PATH=/Contour next build",
+    "deploy": "npm run export && npx -y gh-pages -d out -b gh-pages --dotfiles",
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run",
