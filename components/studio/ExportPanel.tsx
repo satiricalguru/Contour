@@ -193,7 +193,7 @@ export function ExportPanel() {
         <button
           onClick={() => setIsMultiDeviceOpen(true)}
           disabled={exporting || recordingVideo}
-          className="flex items-center justify-center gap-2 bg-[var(--heading-color)] text-[var(--background)] rounded-xl py-2.5 px-4 text-sm font-semibold hover:opacity-90 transition-all duration-200 shadow-md disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+          className="flex items-center justify-center gap-2 bg-[var(--pill-bg)] border border-[var(--card-border)] text-[var(--heading-color)] hover:border-slate-400/40 dark:hover:border-white/20 hover:bg-white/5 rounded-xl py-2.5 px-4 text-sm font-semibold transition-all duration-200 shadow-xs disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
           aria-label="Export wallpaper for multiple Apple devices"
         >
           <svg className="w-4 h-4 fill-current" viewBox="0 0 20 20">
@@ -207,7 +207,7 @@ export function ExportPanel() {
         <button
           onClick={handleExport}
           disabled={exporting || recordingVideo}
-          className="flex items-center justify-center gap-2 bg-[var(--pill-bg)] border border-[var(--card-border)] text-[var(--heading-color)] hover:border-slate-400/40 dark:hover:border-white/20 rounded-xl py-2.5 px-4 text-sm font-semibold transition-all duration-200 shadow-sm disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+          className="flex items-center justify-center gap-2 bg-[var(--heading-color)] text-[var(--background)] rounded-xl py-2.5 px-4 text-sm font-semibold hover:opacity-90 transition-all duration-200 shadow-md disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
           aria-label="Export wallpaper as PNG"
         >
           {exporting ? (
