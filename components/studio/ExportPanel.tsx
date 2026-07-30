@@ -175,7 +175,7 @@ export function ExportPanel() {
       model: modelId,
     });
 
-    const url = `${window.location.origin}/studio?${params.toString()}`;
+    const url = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
     navigator.clipboard.writeText(url).then(() => {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);

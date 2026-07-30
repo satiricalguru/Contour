@@ -3,16 +3,23 @@
   <h1>Contour</h1>
   <p><strong> Generative 4K Wallpaper & 60 FPS Live Motion Studio for Apple Devices</strong></p>
 
+  <a href="https://satiricalguru.github.io/Contour/">
+    <img src="https://img.shields.io/badge/🌐_Live_Website-satiricalguru.github.io%2FContour-007AFF?style=for-the-badge&logoColor=white" alt="Live Website" />
+  </a>
+  <br /><br />
+
   [![Next.js 16](https://img.shields.io/badge/Next.js-16.2_App_Router-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
   [![React 19](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
   [![TypeScript 5](https://img.shields.io/badge/TypeScript-5.0-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
   [![Tailwind CSS v4](https://img.shields.io/badge/Tailwind_CSS-v4-38BDF8?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
-  [![60 FPS Live Motion](https://img.shields.io/badge/60_FPS-Live_Motion-emerald?style=for-the-badge)](https://github.com/satiricalguru/Contour)
+  [![60 FPS Live Motion](https://img.shields.io/badge/60_FPS-Live_Motion-emerald?style=for-the-badge)](https://satiricalguru.github.io/Contour/)
   [![License: MIT](https://img.shields.io/badge/License-MIT-emerald.svg?style=for-the-badge)](./LICENSE)
 </div>
 
 <br />
 
+> 🌐 **Try Contour Online**: **[satiricalguru.github.io/Contour/](https://satiricalguru.github.io/Contour/)**
+>
 > **Contour** is an ultra-premium, 100% client-side generative wallpaper studio engineered specifically for the Apple ecosystem. Powered by pure mathematical algorithms (1D/2D value noise, domain-warped fractal Brownian motion, PRNG, and smooth RGB color interpolation), Contour generates bespoke 4K static wallpapers and 60 FPS live motion wallpapers directly inside your browser.
 
 ---
