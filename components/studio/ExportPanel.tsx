@@ -193,65 +193,61 @@ export function ExportPanel() {
         <button
           onClick={() => setIsMultiDeviceOpen(true)}
           disabled={exporting || recordingVideo}
-          className="flex items-center justify-center gap-2 bg-[var(--pill-bg)] border border-[var(--card-border)] text-[var(--heading-color)] hover:border-slate-400/40 dark:hover:border-white/20 hover:bg-white/5 rounded-xl py-2.5 px-4 text-sm font-semibold transition-all duration-200 shadow-xs disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+          className="w-full flex items-center justify-start gap-3 bg-[var(--pill-bg)] border border-[var(--card-border)] text-[var(--heading-color)] hover:border-slate-400/40 dark:hover:border-white/20 hover:bg-white/5 rounded-xl py-2.5 px-4 text-sm font-semibold transition-all duration-200 shadow-xs disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
           aria-label="Export wallpaper for multiple Apple devices"
         >
-          <svg className="w-4 h-4 fill-current" viewBox="0 0 20 20">
-            <path d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7z" />
-            <path fillRule="evenodd" d="M4 7a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2H6a2 2 0 01-2-2V7zm2 0h8v8H6V7z" clipRule="evenodd" />
-          </svg>
-          Export Apple Ecosystem Pack
+          <div className="w-5 shrink-0 flex items-center justify-center">
+            <svg className="w-4 h-4 fill-current" viewBox="0 0 20 20">
+              <path d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7z" />
+              <path fillRule="evenodd" d="M4 7a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2H6a2 2 0 01-2-2V7zm2 0h8v8H6V7z" clipRule="evenodd" />
+            </svg>
+          </div>
+          <span>Export Apple Ecosystem Pack</span>
         </button>
 
         {/* Export Static PNG */}
         <button
           onClick={handleExport}
           disabled={exporting || recordingVideo}
-          className="flex items-center justify-center gap-2 bg-[var(--heading-color)] text-[var(--background)] rounded-xl py-2.5 px-4 text-sm font-semibold hover:opacity-90 transition-all duration-200 shadow-md disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+          className="w-full flex items-center justify-start gap-3 bg-[var(--pill-bg)] border border-[var(--card-border)] text-[var(--heading-color)] hover:border-slate-400/40 dark:hover:border-white/20 hover:bg-white/5 rounded-xl py-2.5 px-4 text-sm font-semibold transition-all duration-200 shadow-xs disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
           aria-label="Export wallpaper as PNG"
         >
-          {exporting ? (
-            <>
+          <div className="w-5 shrink-0 flex items-center justify-center">
+            {exporting ? (
               <svg className="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none">
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
               </svg>
-              Exporting static PNG…
-            </>
-          ) : (
-            <>
+            ) : (
               <svg className="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
                 <path d="M10.75 2.75a.75.75 0 00-1.5 0v8.614L6.295 8.235a.75.75 0 10-1.09 1.03l4.25 4.5a.75.75 0 001.09 0l4.25-4.5a.75.75 0 00-1.09-1.03l-2.955 3.129V2.75z" />
                 <path d="M3.5 12.75a.75.75 0 00-1.5 0v2.5A2.75 2.75 0 004.75 18h10.5A2.75 2.75 0 0018 15.25v-2.5a.75.75 0 00-1.5 0v2.5c0 .69-.56 1.25-1.25 1.25H4.75c-.69 0-1.25-.56-1.25-1.25v-2.5z" />
               </svg>
-              Export Current Device PNG
-            </>
-          )}
+            )}
+          </div>
+          <span>{exporting ? 'Exporting static PNG…' : 'Export Current Device PNG'}</span>
         </button>
 
         {/* Export 4K Live Motion Video */}
         <button
           onClick={handleExportLiveVideo}
           disabled={exporting || recordingVideo}
-          className="flex items-center justify-center gap-2 bg-[var(--pill-bg)] border border-[var(--card-border)] text-[var(--heading-color)] hover:bg-[var(--heading-color)] hover:text-[var(--background)] rounded-xl py-2.5 px-4 text-sm font-semibold transition-all duration-200 shadow-sm disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+          className="w-full flex items-center justify-start gap-3 bg-[var(--pill-bg)] border border-[var(--card-border)] text-[var(--heading-color)] hover:border-slate-400/40 dark:hover:border-white/20 hover:bg-white/5 rounded-xl py-2.5 px-4 text-sm font-semibold transition-all duration-200 shadow-xs disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
           aria-label="Export live motion wallpaper video"
         >
-          {recordingVideo ? (
-            <>
+          <div className="w-5 shrink-0 flex items-center justify-center">
+            {recordingVideo ? (
               <svg className="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none">
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
               </svg>
-              Recording 5s Live Motion Video…
-            </>
-          ) : (
-            <>
+            ) : (
               <svg className="w-4 h-4 fill-current" viewBox="0 0 20 20">
-                <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 00-18 13V7a1 1 0 00-1.447-.894l-2 1z" />
+                <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z" />
               </svg>
-              Export Live Motion Video (4K)
-            </>
-          )}
+            )}
+          </div>
+          <span>{recordingVideo ? 'Recording 5s Live Motion Video…' : 'Export Live Motion Video (4K)'}</span>
         </button>
 
         {device && (
